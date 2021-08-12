@@ -42,7 +42,7 @@ return [
      *  ONLY supported locales list.
      *  You can customize it as you want, but it should be locales codes already exists in Locales List.
      */
-    'supported'    => ['ar', 'en'],
+    'supported'    => ['ar', 'zh', 'nl', 'en', 'fr', 'de', 'ru', 'es', 'pt'],
 
 
     /**
@@ -51,8 +51,9 @@ return [
      *  Used with type [ccTLD]
      */
     'ccTLDs-list'  => [
-        'eg' => 'ar',
-        'us' => 'en',
+        // 'eg' => 'ar_EG',
+        // 'us' => 'en_US',
+        // 'uk' => 'en_GB',
     ],
 
 
@@ -116,7 +117,7 @@ return [
         // 'eu_ES'    => ['name' => 'Basque (Spain)', 'native' => 'euskara', 'rtl' => false],
         // 'be'       => ['name' => 'Belarusian', 'native' => 'беларуская', 'rtl' => false],
         // 'be_BY'    => ['name' => 'Belarusian (Belarus)', 'native' => 'беларуская', 'rtl' => false],
-        'bn'       => ['name' => 'Bengali', 'native' => 'বাংলা', 'rtl' => false],
+        // 'bn'       => ['name' => 'Bengali', 'native' => 'বাংলা', 'rtl' => false],
         // 'bn_BD'    => ['name' => 'Bengali (Bangladesh)', 'native' => 'বাংলা', 'rtl' => false],
         // 'bn_IN'    => ['name' => 'Bengali (India)', 'native' => 'বাংলা', 'rtl' => false],
         // 'bs'       => ['name' => 'Bosnian', 'native' => 'bosanski', 'rtl' => false],
@@ -341,7 +342,7 @@ return [
         // 'ha_NG'    => ['name' => 'Hausa (Nigeria)', 'native' => 'Hausa', 'rtl' => true],
         // 'he'       => ['name' => 'Hebrew', 'native' => 'עברית', 'rtl' => true],
         // 'he_IL'    => ['name' => 'Hebrew (Israel)', 'native' => 'עברית', 'rtl' => true],
-        'hi'       => ['name' => 'Hindi', 'native' => 'हिन्दी', 'rtl' => false],
+        // 'hi'       => ['name' => 'Hindi', 'native' => 'हिन्दी', 'rtl' => false],
         // 'hi_IN'    => ['name' => 'Hindi (India)', 'native' => 'हिन्दी', 'rtl' => false],
         // 'hu'       => ['name' => 'Hungarian', 'native' => 'magyar', 'rtl' => false],
         // 'hu_HU'    => ['name' => 'Hungarian (Hungary)', 'native' => 'magyar', 'rtl' => false],
@@ -349,7 +350,7 @@ return [
         // 'is_IS'    => ['name' => 'Icelandic (Iceland)', 'native' => 'íslenska', 'rtl' => false],
         // 'ig'       => ['name' => 'Igbo', 'native' => 'Igbo', 'rtl' => false],
         // 'ig_NG'    => ['name' => 'Igbo (Nigeria)', 'native' => 'Igbo', 'rtl' => false],
-        'id'       => ['name' => 'Indonesian', 'native' => 'Bahasa Indonesia', 'rtl' => false],
+        // 'id'       => ['name' => 'Indonesian', 'native' => 'Bahasa Indonesia', 'rtl' => false],
         // 'id_ID'    => ['name' => 'Indonesian (Indonesia)', 'native' => 'Bahasa Indonesia', 'rtl' => false],
         // 'ga'       => ['name' => 'Irish', 'native' => 'Gaeilge', 'rtl' => false],
         // 'ga_IE'    => ['name' => 'Irish (Ireland)', 'native' => 'Gaeilge', 'rtl' => false],
@@ -512,7 +513,7 @@ return [
         // 'so_ET'    => ['name' => 'Somali (Ethiopia)', 'native' => 'Soomaali', 'rtl' => false],
         // 'so_KE'    => ['name' => 'Somali (Kenya)', 'native' => 'Soomaali', 'rtl' => false],
         // 'so_SO'    => ['name' => 'Somali (Somalia)', 'native' => 'Soomaali', 'rtl' => false],
-        'es'       => ['name' => 'Spanish', 'native' => 'español', 'rtl' => false],
+        , 'pt'       => ['name' => 'Spanish', 'native' => 'español', 'rtl' => false],
         // 'es_AR'    => ['name' => 'Spanish (Argentina)', 'native' => 'español', 'rtl' => false],
         // 'es_BO'    => ['name' => 'Spanish (Bolivia)', 'native' => 'español', 'rtl' => false],
         // 'es_IC'    => ['name' => 'Spanish (Canary Islands)', 'native' => 'español', 'rtl' => false],
@@ -570,7 +571,7 @@ return [
         // 'tr_TR'    => ['name' => 'Turkish (Turkey)', 'native' => 'Türkçe', 'rtl' => false],
         // 'uk'       => ['name' => 'Ukrainian', 'native' => 'українська', 'rtl' => false],
         // 'uk_UA'    => ['name' => 'Ukrainian (Ukraine)', 'native' => 'українська', 'rtl' => false],
-        'ur'       => ['name' => 'Urdu', 'native' => 'اردو', 'rtl' => true],
+        // 'ur'       => ['name' => 'Urdu', 'native' => 'اردو', 'rtl' => true],
         // 'ur_IN'    => ['name' => 'Urdu (India)', 'native' => 'اردو', 'rtl' => true],
         // 'ur_PK'    => ['name' => 'Urdu (Pakistan)', 'native' => 'اردو', 'rtl' => true],
         // 'ug'       => ['name' => 'Uyghur', 'native' => 'ئۇيغۇرچە', 'rtl' => false],
