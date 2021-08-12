@@ -513,7 +513,7 @@ return [
         // 'so_ET'    => ['name' => 'Somali (Ethiopia)', 'native' => 'Soomaali', 'rtl' => false],
         // 'so_KE'    => ['name' => 'Somali (Kenya)', 'native' => 'Soomaali', 'rtl' => false],
         // 'so_SO'    => ['name' => 'Somali (Somalia)', 'native' => 'Soomaali', 'rtl' => false],
-        , 'pt'       => ['name' => 'Spanish', 'native' => 'español', 'rtl' => false],
+        'es'       => ['name' => 'Spanish', 'native' => 'español', 'rtl' => false],
         // 'es_AR'    => ['name' => 'Spanish (Argentina)', 'native' => 'español', 'rtl' => false],
         // 'es_BO'    => ['name' => 'Spanish (Bolivia)', 'native' => 'español', 'rtl' => false],
         // 'es_IC'    => ['name' => 'Spanish (Canary Islands)', 'native' => 'español', 'rtl' => false],
