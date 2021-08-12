@@ -299,14 +299,33 @@ class Localization
     }
 
     /**
-     * Getting locale abbreviation.
+     * Getting Language.
      *
      * @param string|null $locale
-     * @return string
+     * @return null
      */
-    public function getAbbreviation(string $locale = null)
+    public function getLanguage(string $locale = null)
     {
-        return $this->list[$locale ?? $this->current]['abbr'];
+        $locale = $locale ?? $this->current;
+        if (strpos($locale, '_') !== false)
+            return explode('_', $locale)[0];
+
+        return $locale;
+    }
+
+    /**
+     * Getting Region.
+     *
+     * @param string|null $locale
+     * @return null
+     */
+    public function getRegion(string $locale = null)
+    {
+        $locale = $locale ?? $this->current;
+        if (strpos($locale, '_') !== false)
+            return explode('_', $locale)[1];
+
+        return null;
     }
 
     /**
