@@ -89,7 +89,7 @@ class Localization
     public function __construct()
     {
         // Load Configrations
-        $config = config('Pharaonic.localization');
+        $config = config('Pharaonic.localization', config('laravel-localization'));
         $this->type             = $config['type'];
         $this->default          = $config['default'];
         $this->hideDefault      = $config['hide-default'];
