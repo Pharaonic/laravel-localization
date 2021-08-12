@@ -1,4 +1,4 @@
-<p align="center"><a href="https://pharaonic.io" target="_blank"><img src="https://raw.githubusercontent.com/Pharaonic/logos/main/messages.jpg"></a></p>
+<p align="center"><a href="https://pharaonic.io" target="_blank"><img src="https://raw.githubusercontent.com/Pharaonic/logos/main/localization.jpg"></a></p>
 
 <p align="center">
   <a href="https://php.net" target="_blank"><img src="https://img.shields.io/static/v1?label=PHP&message=%3E=7.2&color=blue&style=flat-square" alt="PHP Version : >= 7.2"></a>
@@ -12,20 +12,20 @@
 </p>
 
 <h3 align="center">Laravel URL Localization - (ccTLD, sub-domain, sub-directory).</h3>
+<h5 align="center">with Simple & Easy Helpers.</h5>
 
 <br>
-<h6>Route Example :</h6>
-```php
+<h6>Sub-Directory Localzation Routing Example :</h6>
+
+````php
 Route::localized(function(){
-    Route::get('/', function(){
+    Route::get('/page', function(){
         return 'Pharaonic';
     });
 });
 
 // Output : {locale?}/page
-
-```
-<br>
+````
 
 ## Documentation
 
