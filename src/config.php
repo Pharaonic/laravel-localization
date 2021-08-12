@@ -2058,672 +2058,622 @@ return [
         ],
         'os'            => [
             'name'   => 'Ossetic',
-            'native' => '',
+            'native' => 'ирон',
             'rtl'    => false
         ],
         'os_GE'         => [
             'name'   => 'Ossetic (Georgia)',
-            'native' => '',
+            'native' => 'ирон',
             'rtl'    => false
         ],
         'os_RU'         => [
             'name'   => 'Ossetic (Russia)',
-            'native' => '',
+            'native' => 'ирон',
             'rtl'    => false
         ],
         'ps'            => [
             'name'   => 'Pashto',
-            'native' => '',
+            'native' => 'پښتو',
             'rtl'    => false
         ],
         'ps_AF'         => [
             'name'   => 'Pashto (Afghanistan)',
-            'native' => '',
+            'native' => 'پښتو',
             'rtl'    => false
         ],
         'fa'            => [
             'name'   => 'Persian',
-            'native' => '',
+            'native' => 'فارسی',
             'rtl'    => false
         ],
         'fa_AF'         => [
             'name'   => 'Persian (Afghanistan)',
-            'native' => '',
+            'native' => 'فارسی',
             'rtl'    => false
         ],
         'fa_IR'         => [
             'name'   => 'Persian (Iran)',
-            'native' => '',
+            'native' => 'فارسی',
             'rtl'    => false
         ],
         'pl'            => [
             'name'   => 'Polish',
-            'native' => '',
+            'native' => 'polski',
             'rtl'    => false
         ],
         'pl_PL'         => [
             'name'   => 'Polish (Poland)',
-            'native' => '',
+            'native' => 'polski',
             'rtl'    => false
         ],
         'pt'            => [
             'name'   => 'Portuguese',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_AO'         => [
             'name'   => 'Portuguese (Angola)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_BR'         => [
             'name'   => 'Portuguese (Brazil)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_CV'         => [
             'name'   => 'Portuguese (Cape Verde)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_GW'         => [
             'name'   => 'Portuguese (Guinea-Bissau)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_MO'         => [
             'name'   => 'Portuguese (Macau SAR China)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_MZ'         => [
             'name'   => 'Portuguese (Mozambique)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_PT'         => [
             'name'   => 'Portuguese (Portugal)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_ST'         => [
             'name'   => 'Portuguese (São Tomé & Príncipe)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pt_TL'         => [
             'name'   => 'Portuguese (Timor-Leste)',
-            'native' => '',
+            'native' => 'português',
             'rtl'    => false
         ],
         'pa'            => [
             'name'   => 'Punjabi',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'pa_Arab_PK'    => [
-            'name'   => 'Punjabi (Arabic, Pakistan)',
-            'native' => '',
+            'native' => 'ਪੰਜਾਬੀ',
             'rtl'    => false
         ],
         'pa_Arab'       => [
             'name'   => 'Punjabi (Arabic)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'pa_Guru_IN'    => [
-            'name'   => 'Punjabi (Gurmukhi, India)',
-            'native' => '',
+            'native' => 'پنجابی',
             'rtl'    => false
         ],
         'pa_Guru'       => [
             'name'   => 'Punjabi (Gurmukhi)',
-            'native' => '',
+            'native' => 'ਪੰਜਾਬੀ',
             'rtl'    => false
         ],
         'pa_IN'         => [
             'name'   => 'Punjabi (India)',
-            'native' => '',
+            'native' => 'ਪੰਜਾਬੀ',
             'rtl'    => false
         ],
         'pa_PK'         => [
             'name'   => 'Punjabi (Pakistan)',
-            'native' => '',
+            'native' => 'ਪੰਜਾਬੀ',
             'rtl'    => false
         ],
         'qu'            => [
             'name'   => 'Quechua',
-            'native' => '',
+            'native' => 'Runasimi',
             'rtl'    => false
         ],
         'qu_BO'         => [
             'name'   => 'Quechua (Bolivia)',
-            'native' => '',
+            'native' => 'Runasimi',
             'rtl'    => false
         ],
         'qu_EC'         => [
             'name'   => 'Quechua (Ecuador)',
-            'native' => '',
+            'native' => 'Runasimi',
             'rtl'    => false
         ],
         'qu_PE'         => [
             'name'   => 'Quechua (Peru)',
-            'native' => '',
+            'native' => 'Runasimi',
             'rtl'    => false
         ],
         'ro'            => [
             'name'   => 'Romanian',
-            'native' => '',
+            'native' => 'română',
             'rtl'    => false
         ],
         'ro_MD'         => [
             'name'   => 'Romanian (Moldova)',
-            'native' => '',
+            'native' => 'română',
             'rtl'    => false
         ],
         'ro_RO'         => [
             'name'   => 'Romanian (Romania)',
-            'native' => '',
+            'native' => 'română',
             'rtl'    => false
         ],
         'rm'            => [
             'name'   => 'Romansh',
-            'native' => '',
+            'native' => 'rumantsch',
             'rtl'    => false
         ],
         'rm_CH'         => [
             'name'   => 'Romansh (Switzerland)',
-            'native' => '',
+            'native' => 'rumantsch',
             'rtl'    => false
         ],
         'rn'            => [
             'name'   => 'Rundi',
-            'native' => '',
+            'native' => 'Ikirundi',
             'rtl'    => false
         ],
         'rn_BI'         => [
             'name'   => 'Rundi (Burundi)',
-            'native' => '',
+            'native' => 'Ikirundi',
             'rtl'    => false
         ],
         'ru'            => [
             'name'   => 'Russian',
-            'native' => '',
+            'native' => 'русский',
             'rtl'    => false
         ],
         'ru_BY'         => [
             'name'   => 'Russian (Belarus)',
-            'native' => '',
+            'native' => 'русский',
             'rtl'    => false
         ],
         'ru_KZ'         => [
             'name'   => 'Russian (Kazakhstan)',
-            'native' => '',
+            'native' => 'русский',
             'rtl'    => false
         ],
         'ru_KG'         => [
             'name'   => 'Russian (Kyrgyzstan)',
-            'native' => '',
+            'native' => 'русский',
             'rtl'    => false
         ],
         'ru_MD'         => [
             'name'   => 'Russian (Moldova)',
-            'native' => '',
+            'native' => 'русский',
             'rtl'    => false
         ],
         'ru_RU'         => [
             'name'   => 'Russian (Russia)',
-            'native' => '',
+            'native' => 'русский',
             'rtl'    => false
         ],
         'ru_UA'         => [
             'name'   => 'Russian (Ukraine)',
-            'native' => '',
+            'native' => 'русский',
             'rtl'    => false
         ],
         'sg'            => [
             'name'   => 'Sango',
-            'native' => '',
+            'native' => 'Sängö',
             'rtl'    => false
         ],
         'sg_CF'         => [
             'name'   => 'Sango (Central African Republic)',
-            'native' => '',
+            'native' => 'Sängö',
             'rtl'    => false
         ],
         'gd'            => [
             'name'   => 'Scottish Gaelic',
-            'native' => '',
+            'native' => 'Gàidhlig',
             'rtl'    => false
         ],
         'gd_GB'         => [
             'name'   => 'Scottish Gaelic (United Kingdom)',
-            'native' => '',
+            'native' => 'Gàidhlig',
             'rtl'    => false
         ],
         'sr'            => [
             'name'   => 'Serbian',
-            'native' => '',
+            'native' => 'српски',
             'rtl'    => false
         ],
         'sr_BA'         => [
             'name'   => 'Serbian (Bosnia & Herzegovina)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'sr_Cyrl_BA'    => [
-            'name'   => 'Serbian (Cyrillic, Bosnia & Herzegovina)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'sr_Cyrl_XK'    => [
-            'name'   => 'Serbian (Cyrillic, Kosovo)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'sr_Cyrl_ME'    => [
-            'name'   => 'Serbian (Cyrillic, Montenegro)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'sr_Cyrl_RS'    => [
-            'name'   => 'Serbian (Cyrillic, Serbia)',
-            'native' => '',
+            'native' => 'српски',
             'rtl'    => false
         ],
         'sr_Cyrl'       => [
             'name'   => 'Serbian (Cyrillic)',
-            'native' => '',
+            'native' => 'српски',
             'rtl'    => false
         ],
         'sr_XK'         => [
             'name'   => 'Serbian (Kosovo)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'sr_Latn_BA'    => [
-            'name'   => 'Serbian (Latin, Bosnia & Herzegovina)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'sr_Latn_XK'    => [
-            'name'   => 'Serbian (Latin, Kosovo)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'sr_Latn_ME'    => [
-            'name'   => 'Serbian (Latin, Montenegro)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'sr_Latn_RS'    => [
-            'name'   => 'Serbian (Latin, Serbia)',
-            'native' => '',
+            'native' => 'српски',
             'rtl'    => false
         ],
         'sr_Latn'       => [
             'name'   => 'Serbian (Latin)',
-            'native' => '',
+            'native' => 'srpski',
             'rtl'    => false
         ],
         'sr_ME'         => [
             'name'   => 'Serbian (Montenegro)',
-            'native' => '',
+            'native' => 'српски',
             'rtl'    => false
         ],
         'sr_RS'         => [
             'name'   => 'Serbian (Serbia)',
-            'native' => '',
+            'native' => 'српски',
             'rtl'    => false
         ],
         'sh'            => [
             'name'   => 'Serbo-Croatian',
-            'native' => '',
+            'native' => 'Srpskohrvatski',
             'rtl'    => false
         ],
         'sh_BA'         => [
             'name'   => 'Serbo-Croatian (Bosnia & Herzegovina)',
-            'native' => '',
+            'native' => 'Srpskohrvatski',
             'rtl'    => false
         ],
         'sn'            => [
             'name'   => 'Shona',
-            'native' => '',
+            'native' => 'chiShona',
             'rtl'    => false
         ],
         'sn_ZW'         => [
             'name'   => 'Shona (Zimbabwe)',
-            'native' => '',
+            'native' => 'chiShona',
             'rtl'    => false
         ],
         'ii'            => [
             'name'   => 'Sichuan Yi',
-            'native' => '',
+            'native' => 'ꆈꌠꉙ',
             'rtl'    => false
         ],
         'ii_CN'         => [
             'name'   => 'Sichuan Yi (China)',
-            'native' => '',
+            'native' => 'ꆈꌠꉙ',
             'rtl'    => false
         ],
         'si'            => [
             'name'   => 'Sinhala',
-            'native' => '',
+            'native' => 'සිංහල',
             'rtl'    => false
         ],
         'si_LK'         => [
             'name'   => 'Sinhala (Sri Lanka)',
-            'native' => '',
+            'native' => 'සිංහල',
             'rtl'    => false
         ],
         'sk'            => [
             'name'   => 'Slovak',
-            'native' => '',
+            'native' => 'slovenčina',
             'rtl'    => false
         ],
         'sk_SK'         => [
             'name'   => 'Slovak (Slovakia)',
-            'native' => '',
+            'native' => 'slovenčina',
             'rtl'    => false
         ],
         'sl'            => [
             'name'   => 'Slovenian',
-            'native' => '',
+            'native' => 'slovenščina',
             'rtl'    => false
         ],
         'sl_SI'         => [
             'name'   => 'Slovenian (Slovenia)',
-            'native' => '',
+            'native' => 'slovenščina',
             'rtl'    => false
         ],
         'so'            => [
             'name'   => 'Somali',
-            'native' => '',
+            'native' => 'Soomaali',
             'rtl'    => false
         ],
         'so_DJ'         => [
             'name'   => 'Somali (Djibouti)',
-            'native' => '',
+            'native' => 'Soomaali',
             'rtl'    => false
         ],
         'so_ET'         => [
             'name'   => 'Somali (Ethiopia)',
-            'native' => '',
+            'native' => 'Soomaali',
             'rtl'    => false
         ],
         'so_KE'         => [
             'name'   => 'Somali (Kenya)',
-            'native' => '',
+            'native' => 'Soomaali',
             'rtl'    => false
         ],
         'so_SO'         => [
             'name'   => 'Somali (Somalia)',
-            'native' => '',
+            'native' => 'Soomaali',
             'rtl'    => false
         ],
         'es'            => [
             'name'   => 'Spanish',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_AR'         => [
             'name'   => 'Spanish (Argentina)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_BO'         => [
             'name'   => 'Spanish (Bolivia)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_IC'         => [
             'name'   => 'Spanish (Canary Islands)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_EA'         => [
             'name'   => 'Spanish (Ceuta & Melilla)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_CL'         => [
             'name'   => 'Spanish (Chile)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_CO'         => [
             'name'   => 'Spanish (Colombia)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_CR'         => [
             'name'   => 'Spanish (Costa Rica)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_CU'         => [
             'name'   => 'Spanish (Cuba)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_DO'         => [
             'name'   => 'Spanish (Dominican Republic)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_EC'         => [
             'name'   => 'Spanish (Ecuador)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_SV'         => [
             'name'   => 'Spanish (El Salvador)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_GQ'         => [
             'name'   => 'Spanish (Equatorial Guinea)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_GT'         => [
             'name'   => 'Spanish (Guatemala)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_HN'         => [
             'name'   => 'Spanish (Honduras)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_MX'         => [
             'name'   => 'Spanish (Mexico)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_NI'         => [
             'name'   => 'Spanish (Nicaragua)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_PA'         => [
             'name'   => 'Spanish (Panama)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_PY'         => [
             'name'   => 'Spanish (Paraguay)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_PE'         => [
             'name'   => 'Spanish (Peru)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_PH'         => [
             'name'   => 'Spanish (Philippines)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_PR'         => [
             'name'   => 'Spanish (Puerto Rico)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_ES'         => [
             'name'   => 'Spanish (Spain)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_US'         => [
             'name'   => 'Spanish (United States)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_UY'         => [
             'name'   => 'Spanish (Uruguay)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'es_VE'         => [
             'name'   => 'Spanish (Venezuela)',
-            'native' => '',
+            'native' => 'español',
             'rtl'    => false
         ],
         'sw'            => [
             'name'   => 'Swahili',
-            'native' => '',
+            'native' => 'Kiswahili',
             'rtl'    => false
         ],
         'sw_KE'         => [
             'name'   => 'Swahili (Kenya)',
-            'native' => '',
+            'native' => 'Kiswahili',
             'rtl'    => false
         ],
         'sw_TZ'         => [
             'name'   => 'Swahili (Tanzania)',
-            'native' => '',
+            'native' => 'Kiswahili',
             'rtl'    => false
         ],
         'sw_UG'         => [
             'name'   => 'Swahili (Uganda)',
-            'native' => '',
+            'native' => 'Kiswahili',
             'rtl'    => false
         ],
         'sv'            => [
             'name'   => 'Swedish',
-            'native' => '',
+            'native' => 'svenska',
             'rtl'    => false
         ],
         'sv_AX'         => [
             'name'   => 'Swedish (Åland Islands)',
-            'native' => '',
+            'native' => 'svenska',
             'rtl'    => false
         ],
         'sv_FI'         => [
             'name'   => 'Swedish (Finland)',
-            'native' => '',
+            'native' => 'svenska',
             'rtl'    => false
         ],
         'sv_SE'         => [
             'name'   => 'Swedish (Sweden)',
-            'native' => '',
+            'native' => 'svenska',
             'rtl'    => false
         ],
         'tl'            => [
             'name'   => 'Tagalog',
-            'native' => '',
+            'native' => 'Tagalog',
             'rtl'    => false
         ],
         'tl_PH'         => [
             'name'   => 'Tagalog (Philippines)',
-            'native' => '',
+            'native' => 'Tagalog',
             'rtl'    => false
         ],
         'ta'            => [
             'name'   => 'Tamil',
-            'native' => '',
+            'native' => 'தமிழ்',
             'rtl'    => false
         ],
         'ta_IN'         => [
             'name'   => 'Tamil (India)',
-            'native' => '',
+            'native' => 'தமிழ்',
             'rtl'    => false
         ],
         'ta_MY'         => [
             'name'   => 'Tamil (Malaysia)',
-            'native' => '',
+            'native' => 'தமிழ்',
             'rtl'    => false
         ],
         'ta_SG'         => [
             'name'   => 'Tamil (Singapore)',
-            'native' => '',
+            'native' => 'தமிழ்',
             'rtl'    => false
         ],
         'ta_LK'         => [
             'name'   => 'Tamil (Sri Lanka)',
-            'native' => '',
+            'native' => 'தமிழ்',
             'rtl'    => false
         ],
         'te'            => [
             'name'   => 'Telugu',
-            'native' => '',
+            'native' => 'తెలుగు',
             'rtl'    => false
         ],
         'te_IN'         => [
             'name'   => 'Telugu (India)',
-            'native' => '',
+            'native' => 'టర్కిష్',
             'rtl'    => false
         ],
         'th'            => [
             'name'   => 'Thai',
-            'native' => '',
+            'native' => 'ไทย',
             'rtl'    => false
         ],
         'th_TH'         => [
             'name'   => 'Thai (Thailand)',
-            'native' => '',
+            'native' => 'ไทย',
             'rtl'    => false
         ],
         'bo'            => [
             'name'   => 'Tibetan',
-            'native' => '',
+            'native' => 'བོད་སྐད་',
             'rtl'    => false
         ],
         'bo_CN'         => [
             'name'   => 'Tibetan (China)',
-            'native' => '',
+            'native' => 'བོད་སྐད་',
             'rtl'    => false
         ],
         'bo_IN'         => [
             'name'   => 'Tibetan (India)',
-            'native' => '',
+            'native' => 'བོད་སྐད་',
             'rtl'    => false
         ],
         'ti'            => [
             'name'   => 'Tigrinya',
-            'native' => '',
+            'native' => 'ትግርኛ',
             'rtl'    => false
         ],
         'ti_ER'         => [
             'name'   => 'Tigrinya (Eritrea)',
-            'native' => '',
+            'native' => 'ትግርኛ',
             'rtl'    => false
         ],
         'ti_ET'         => [
             'name'   => 'Tigrinya (Ethiopia)',
-            'native' => '',
+            'native' => 'ትግርኛ',
             'rtl'    => false
         ],
         'to'            => [
             'name'   => 'Tongan',
-            'native' => '',
+            'native' => 'lea fakatonga',
             'rtl'    => false
         ],
         'to_TO'         => [
             'name'   => 'Tongan (Tonga)',
-            'native' => '',
+            'native' => 'lea fakatonga',
             'rtl'    => false
         ],
         'tr'            => [
