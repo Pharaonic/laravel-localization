@@ -14,8 +14,11 @@
 <h3 align="center">Laravel URL Localization - (ccTLD, sub-domain, sub-directory).</h3>
 <h5 align="center">with Simple & Easy Helpers.</h5>
 
+`Afrikaans` `Akan` `shqip` `አማርኛ` `العربية` `հայերեն` `অসমীয়া` `azərbaycan` `Азәрбајҹан` `bamanakan` `euskara` `беларуская` `বাংলা` `босански` `bosanski` `brezhoneg` `български` `ဗမာ` `català` `中文` `简体中文` `繁体中文` `kernewek` `hrvatski` `čeština` `dansk` `Nederlands` `རྫོང་ཁ` `English` `Esperanto` `eesti` `eʋegbe` `føroyskt` `suomi` `français` `Pulaar` `galego` `Luganda` `ქართული` `Deutsch` `Ελληνικά` `ગુજરાતી` `Hausa` `עברית` `हिन्दी` `magyar` `íslenska` `Igbo` `Bahasa Indonesia` `Gaeilge` `italiano` `日本語` `kalaallisut` `ಕನ್ನಡ` `کٲشُر` `қазақ тілі` `ខ្មែរ` `Gikuyu` `Kinyarwanda` `한국어` `кыргызча` `ລາວ` `latviešu` `lingála` `lietuvių` `Tshiluba` `Lëtzebuergesch` `македонски` `Malagasy` `Bahasa Melayu` `മലയാളം` `Malti` `Gaelg` `मराठी` `монгол` `नेपाली` `isiNdebele` `davvisámegiella` `norsk` `norsk bokmål` `nynorsk` `ଓଡ଼ିଆ` `Oromoo` `ирон` `پښتو` `فارسی` `polski` `português` `پنجابی` `ਪੰਜਾਬੀ` `Runasimi` `română` `rumantsch` `Ikirundi` `русский` `Sängö` `Gàidhlig` `српски` `srpski` `Srpskohrvatski` `chiShona` `ꆈꌠꉙ` `සිංහල` `slovenčina` `slovenščina` `Soomaali` `español` `Kiswahili` `svenska` `Tagalog` `தமிழ்` `తెలుగు` `ไทย` `བོད་སྐད་` `ትግርኛ` `lea fakatonga` `Türkçe` `українська` `اردو` `ئۇيغۇرچە` `oʻzbekcha` `Tiếng Việt` `Cymraeg` `West-Frysk` `ייִדיש` `Èdè Yorùbá` `isiZulu`
 <br>
 <h6>Sub-Directory Localzation Routing Example :</h6>
+
+
 
 ````php
 Route::localized(function(){
