@@ -1468,592 +1468,562 @@ return [
         ],
         'el'            => [
             'name'   => 'Greek',
-            'native' => '',
+            'native' => 'Ελληνικά',
             'rtl'    => false
         ],
         'el_CY'         => [
             'name'   => 'Greek (Cyprus)',
-            'native' => '',
+            'native' => 'Ελληνικά',
             'rtl'    => false
         ],
         'el_GR'         => [
             'name'   => 'Greek (Greece)',
-            'native' => '',
+            'native' => 'Ελληνικά',
             'rtl'    => false
         ],
         'gu'            => [
             'name'   => 'Gujarati',
-            'native' => '',
+            'native' => 'ગુજરાતી',
             'rtl'    => false
         ],
         'gu_IN'         => [
             'name'   => 'Gujarati (India)',
-            'native' => '',
+            'native' => 'ગુજરાતી',
             'rtl'    => false
         ],
         'ha'            => [
             'name'   => 'Hausa',
-            'native' => '',
+            'native' => 'Hausa',
             'rtl'    => false
         ],
         'ha_GH'         => [
             'name'   => 'Hausa (Ghana)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'ha_Latn_GH'    => [
-            'name'   => 'Hausa (Latin, Ghana)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'ha_Latn_NE'    => [
-            'name'   => 'Hausa (Latin, Niger)',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'ha_Latn_NG'    => [
-            'name'   => 'Hausa (Latin, Nigeria)',
-            'native' => '',
+            'native' => 'Hausa',
             'rtl'    => false
         ],
         'ha_Latn'       => [
             'name'   => 'Hausa (Latin)',
-            'native' => '',
+            'native' => 'Hausa',
             'rtl'    => false
         ],
         'ha_NE'         => [
             'name'   => 'Hausa (Niger)',
-            'native' => '',
+            'native' => 'Hausa',
             'rtl'    => false
         ],
         'ha_NG'         => [
             'name'   => 'Hausa (Nigeria)',
-            'native' => '',
+            'native' => 'Hausa',
             'rtl'    => false
         ],
         'he'            => [
             'name'   => 'Hebrew',
-            'native' => '',
+            'native' => 'עברית',
             'rtl'    => false
         ],
         'he_IL'         => [
             'name'   => 'Hebrew (Israel)',
-            'native' => '',
+            'native' => 'עברית',
             'rtl'    => false
         ],
         'hi'            => [
             'name'   => 'Hindi',
-            'native' => '',
+            'native' => 'हिन्दी',
             'rtl'    => false
         ],
         'hi_IN'         => [
             'name'   => 'Hindi (India)',
-            'native' => '',
+            'native' => 'हिन्दी',
             'rtl'    => false
         ],
         'hu'            => [
             'name'   => 'Hungarian',
-            'native' => '',
+            'native' => 'magyar',
             'rtl'    => false
         ],
         'hu_HU'         => [
             'name'   => 'Hungarian (Hungary)',
-            'native' => '',
+            'native' => 'magyar',
             'rtl'    => false
         ],
         'is'            => [
             'name'   => 'Icelandic',
-            'native' => '',
+            'native' => 'íslenska',
             'rtl'    => false
         ],
         'is_IS'         => [
             'name'   => 'Icelandic (Iceland)',
-            'native' => '',
+            'native' => 'íslenska',
             'rtl'    => false
         ],
         'ig'            => [
             'name'   => 'Igbo',
-            'native' => '',
+            'native' => 'Igbo',
             'rtl'    => false
         ],
         'ig_NG'         => [
             'name'   => 'Igbo (Nigeria)',
-            'native' => '',
+            'native' => 'Igbo',
             'rtl'    => false
         ],
         'id'            => [
             'name'   => 'Indonesian',
-            'native' => '',
+            'native' => 'Bahasa Indonesia',
             'rtl'    => false
         ],
         'id_ID'         => [
             'name'   => 'Indonesian (Indonesia)',
-            'native' => '',
+            'native' => 'Bahasa Indonesia',
             'rtl'    => false
         ],
         'ga'            => [
             'name'   => 'Irish',
-            'native' => '',
+            'native' => 'Gaeilge',
             'rtl'    => false
         ],
         'ga_IE'         => [
             'name'   => 'Irish (Ireland)',
-            'native' => '',
+            'native' => 'Gaeilge',
             'rtl'    => false
         ],
         'it'            => [
             'name'   => 'Italian',
-            'native' => '',
+            'native' => 'italiano',
             'rtl'    => false
         ],
         'it_IT'         => [
             'name'   => 'Italian (Italy)',
-            'native' => '',
+            'native' => 'italiano',
             'rtl'    => false
         ],
         'it_SM'         => [
             'name'   => 'Italian (San Marino)',
-            'native' => '',
+            'native' => 'italiano',
             'rtl'    => false
         ],
         'it_CH'         => [
             'name'   => 'Italian (Switzerland)',
-            'native' => '',
+            'native' => 'italiano',
             'rtl'    => false
         ],
         'ja'            => [
             'name'   => 'Japanese',
-            'native' => '',
+            'native' => '日本語',
             'rtl'    => false
         ],
         'ja_JP'         => [
             'name'   => 'Japanese (Japan)',
-            'native' => '',
+            'native' => '日本語',
             'rtl'    => false
         ],
         'kl'            => [
             'name'   => 'Kalaallisut',
-            'native' => '',
+            'native' => 'kalaallisut',
             'rtl'    => false
         ],
         'kl_GL'         => [
             'name'   => 'Kalaallisut (Greenland)',
-            'native' => '',
+            'native' => 'kalaallisut',
             'rtl'    => false
         ],
         'kn'            => [
             'name'   => 'Kannada',
-            'native' => '',
+            'native' => 'ಕನ್ನಡ',
             'rtl'    => false
         ],
         'kn_IN'         => [
             'name'   => 'Kannada (India)',
-            'native' => '',
+            'native' => 'ಕನ್ನಡ',
             'rtl'    => false
         ],
         'ks'            => [
             'name'   => 'Kashmiri',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'ks_Arab_IN'    => [
-            'name'   => 'Kashmiri (Arabic, India)',
-            'native' => '',
+            'native' => 'کٲشُر',
             'rtl'    => false
         ],
         'ks_Arab'       => [
             'name'   => 'Kashmiri (Arabic)',
-            'native' => '',
+            'native' => 'کٲشُر',
             'rtl'    => false
         ],
         'ks_IN'         => [
             'name'   => 'Kashmiri (India)',
-            'native' => '',
+            'native' => 'کٲشُر',
             'rtl'    => false
         ],
         'kk'            => [
             'name'   => 'Kazakh',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'kk_Cyrl_KZ'    => [
-            'name'   => 'Kazakh (Cyrillic, Kazakhstan)',
-            'native' => '',
+            'native' => 'қазақ тілі',
             'rtl'    => false
         ],
         'kk_Cyrl'       => [
             'name'   => 'Kazakh (Cyrillic)',
-            'native' => '',
+            'native' => 'қазақ тілі',
             'rtl'    => false
         ],
         'kk_KZ'         => [
             'name'   => 'Kazakh (Kazakhstan)',
-            'native' => '',
+            'native' => 'қазақ тілі',
             'rtl'    => false
         ],
         'km'            => [
             'name'   => 'Khmer',
-            'native' => '',
+            'native' => 'ខ្មែរ',
             'rtl'    => false
         ],
         'km_KH'         => [
             'name'   => 'Khmer (Cambodia)',
-            'native' => '',
+            'native' => 'ខ្មែរ',
             'rtl'    => false
         ],
         'ki'            => [
             'name'   => 'Kikuyu',
-            'native' => '',
+            'native' => 'Gikuyu',
             'rtl'    => false
         ],
         'ki_KE'         => [
             'name'   => 'Kikuyu (Kenya)',
-            'native' => '',
+            'native' => 'Gikuyu',
             'rtl'    => false
         ],
         'rw'            => [
             'name'   => 'Kinyarwanda',
-            'native' => '',
+            'native' => 'Kinyarwanda',
             'rtl'    => false
         ],
         'rw_RW'         => [
             'name'   => 'Kinyarwanda (Rwanda)',
-            'native' => '',
+            'native' => 'Kinyarwanda',
             'rtl'    => false
         ],
         'ko'            => [
             'name'   => 'Korean',
-            'native' => '',
+            'native' => '한국어',
             'rtl'    => false
         ],
         'ko_KP'         => [
             'name'   => 'Korean (North Korea)',
-            'native' => '',
+            'native' => '한국어',
             'rtl'    => false
         ],
         'ko_KR'         => [
             'name'   => 'Korean (South Korea)',
-            'native' => '',
+            'native' => '한국어',
             'rtl'    => false
         ],
         'ky'            => [
             'name'   => 'Kyrgyz',
-            'native' => '',
-            'rtl'    => false
-        ],
-        'ky_Cyrl_KG'    => [
-            'name'   => 'Kyrgyz (Cyrillic, Kyrgyzstan)',
-            'native' => '',
+            'native' => 'кыргызча',
             'rtl'    => false
         ],
         'ky_Cyrl'       => [
             'name'   => 'Kyrgyz (Cyrillic)',
-            'native' => '',
+            'native' => 'кыргызча',
             'rtl'    => false
         ],
         'ky_KG'         => [
             'name'   => 'Kyrgyz (Kyrgyzstan)',
-            'native' => '',
+            'native' => 'кыргызча',
             'rtl'    => false
         ],
         'lo'            => [
             'name'   => 'Lao',
-            'native' => '',
+            'native' => 'ລາວ',
             'rtl'    => false
         ],
         'lo_LA'         => [
             'name'   => 'Lao (Laos)',
-            'native' => '',
+            'native' => 'ລາວ',
             'rtl'    => false
         ],
         'lv'            => [
             'name'   => 'Latvian',
-            'native' => '',
+            'native' => 'latviešu',
             'rtl'    => false
         ],
         'lv_LV'         => [
             'name'   => 'Latvian (Latvia)',
-            'native' => '',
+            'native' => 'latviešu',
             'rtl'    => false
         ],
         'ln'            => [
             'name'   => 'Lingala',
-            'native' => '',
+            'native' => 'lingála',
             'rtl'    => false
         ],
         'ln_AO'         => [
             'name'   => 'Lingala (Angola)',
-            'native' => '',
+            'native' => 'lingála',
             'rtl'    => false
         ],
         'ln_CF'         => [
             'name'   => 'Lingala (Central African Republic)',
-            'native' => '',
+            'native' => 'lingála',
             'rtl'    => false
         ],
         'ln_CG'         => [
             'name'   => 'Lingala (Congo - Brazzaville)',
-            'native' => '',
+            'native' => 'lingála',
             'rtl'    => false
         ],
         'ln_CD'         => [
             'name'   => 'Lingala (Congo - Kinshasa)',
-            'native' => '',
+            'native' => 'lingála',
             'rtl'    => false
         ],
         'lt'            => [
             'name'   => 'Lithuanian',
-            'native' => '',
+            'native' => 'lietuvių',
             'rtl'    => false
         ],
         'lt_LT'         => [
             'name'   => 'Lithuanian (Lithuania)',
-            'native' => '',
+            'native' => 'lietuvių',
             'rtl'    => false
         ],
         'lu'            => [
             'name'   => 'Luba-Katanga',
-            'native' => '',
+            'native' => 'Tshiluba',
             'rtl'    => false
         ],
         'lu_CD'         => [
             'name'   => 'Luba-Katanga (Congo - Kinshasa)',
-            'native' => '',
+            'native' => 'Tshiluba',
             'rtl'    => false
         ],
         'lb'            => [
             'name'   => 'Luxembourgish',
-            'native' => '',
+            'native' => 'Lëtzebuergesch',
             'rtl'    => false
         ],
         'lb_LU'         => [
             'name'   => 'Luxembourgish (Luxembourg)',
-            'native' => '',
+            'native' => 'Lëtzebuergesch',
             'rtl'    => false
         ],
         'mk'            => [
             'name'   => 'Macedonian',
-            'native' => '',
+            'native' => 'македонски',
             'rtl'    => false
         ],
         'mk_MK'         => [
             'name'   => 'Macedonian (Macedonia)',
-            'native' => '',
+            'native' => 'македонски',
             'rtl'    => false
         ],
         'mg'            => [
             'name'   => 'Malagasy',
-            'native' => '',
+            'native' => 'Malagasy',
             'rtl'    => false
         ],
         'mg_MG'         => [
             'name'   => 'Malagasy (Madagascar)',
-            'native' => '',
+            'native' => 'Malagasy',
             'rtl'    => false
         ],
         'ms'            => [
             'name'   => 'Malay',
-            'native' => '',
+            'native' => 'Bahasa Melayu',
             'rtl'    => false
         ],
         'ms_BN'         => [
             'name'   => 'Malay (Brunei)',
-            'native' => '',
+            'native' => 'Bahasa Melayu',
             'rtl'    => false
         ],
         'ms_Latn_BN'    => [
             'name'   => 'Malay (Latin, Brunei)',
-            'native' => '',
+            'native' => 'Bahasa Melayu',
             'rtl'    => false
         ],
         'ms_Latn_MY'    => [
             'name'   => 'Malay (Latin, Malaysia)',
-            'native' => '',
+            'native' => 'Bahasa Melayu',
             'rtl'    => false
         ],
         'ms_Latn_SG'    => [
             'name'   => 'Malay (Latin, Singapore)',
-            'native' => '',
+            'native' => 'Bahasa Melayu',
             'rtl'    => false
         ],
         'ms_Latn'       => [
             'name'   => 'Malay (Latin)',
-            'native' => '',
+            'native' => 'Bahasa Melayu',
             'rtl'    => false
         ],
         'ms_MY'         => [
             'name'   => 'Malay (Malaysia)',
-            'native' => '',
+            'native' => 'Bahasa Melayu',
             'rtl'    => false
         ],
         'ms_SG'         => [
             'name'   => 'Malay (Singapore)',
-            'native' => '',
+            'native' => 'Bahasa Melayu',
             'rtl'    => false
         ],
         'ml'            => [
             'name'   => 'Malayalam',
-            'native' => '',
+            'native' => 'മലയാളം',
             'rtl'    => false
         ],
         'ml_IN'         => [
             'name'   => 'Malayalam (India)',
-            'native' => '',
+            'native' => 'മലയാളം',
             'rtl'    => false
         ],
         'mt'            => [
             'name'   => 'Maltese',
-            'native' => '',
+            'native' => 'Malti',
             'rtl'    => false
         ],
         'mt_MT'         => [
             'name'   => 'Maltese (Malta)',
-            'native' => '',
+            'native' => 'Malti',
             'rtl'    => false
         ],
         'gv'            => [
             'name'   => 'Manx',
-            'native' => '',
+            'native' => 'Gaelg',
             'rtl'    => false
         ],
         'gv_IM'         => [
             'name'   => 'Manx (Isle of Man)',
-            'native' => '',
+            'native' => 'Gaelg',
             'rtl'    => false
         ],
         'mr'            => [
             'name'   => 'Marathi',
-            'native' => '',
+            'native' => 'मराठी',
             'rtl'    => false
         ],
         'mr_IN'         => [
             'name'   => 'Marathi (India)',
-            'native' => '',
+            'native' => 'मराठी',
             'rtl'    => false
         ],
         'mn'            => [
             'name'   => 'Mongolian',
-            'native' => '',
+            'native' => 'монгол',
             'rtl'    => false
         ],
         'mn_Cyrl_MN'    => [
             'name'   => 'Mongolian (Cyrillic, Mongolia)',
-            'native' => '',
+            'native' => 'монгол',
             'rtl'    => false
         ],
         'mn_Cyrl'       => [
             'name'   => 'Mongolian (Cyrillic)',
-            'native' => '',
+            'native' => 'монгол',
             'rtl'    => false
         ],
         'mn_MN'         => [
             'name'   => 'Mongolian (Mongolia)',
-            'native' => '',
+            'native' => 'монгол',
             'rtl'    => false
         ],
         'ne'            => [
             'name'   => 'Nepali',
-            'native' => '',
+            'native' => 'नेपाली',
             'rtl'    => false
         ],
         'ne_IN'         => [
             'name'   => 'Nepali (India)',
-            'native' => '',
+            'native' => 'नेपाली',
             'rtl'    => false
         ],
         'ne_NP'         => [
             'name'   => 'Nepali (Nepal)',
-            'native' => '',
+            'native' => 'नेपाली',
             'rtl'    => false
         ],
         'nd'            => [
             'name'   => 'North Ndebele',
-            'native' => '',
+            'native' => 'isiNdebele',
             'rtl'    => false
         ],
         'nd_ZW'         => [
             'name'   => 'North Ndebele (Zimbabwe)',
-            'native' => '',
+            'native' => 'isiNdebele',
             'rtl'    => false
         ],
         'se'            => [
             'name'   => 'Northern Sami',
-            'native' => '',
+            'native' => 'davvisámegiella',
             'rtl'    => false
         ],
         'se_FI'         => [
             'name'   => 'Northern Sami (Finland)',
-            'native' => '',
+            'native' => 'davvisámegiella',
             'rtl'    => false
         ],
         'se_NO'         => [
             'name'   => 'Northern Sami (Norway)',
-            'native' => '',
+            'native' => 'davvisámegiella',
             'rtl'    => false
         ],
         'se_SE'         => [
             'name'   => 'Northern Sami (Sweden)',
-            'native' => '',
+            'native' => 'davvisámegiella',
             'rtl'    => false
         ],
         'no'            => [
             'name'   => 'Norwegian',
-            'native' => '',
+            'native' => 'norsk',
             'rtl'    => false
         ],
         'no_NO'         => [
             'name'   => 'Norwegian (Norway)',
-            'native' => '',
+            'native' => 'norsk',
             'rtl'    => false
         ],
         'nb'            => [
             'name'   => 'Norwegian Bokmål',
-            'native' => '',
+            'native' => 'norsk bokmål',
             'rtl'    => false
         ],
         'nb_NO'         => [
             'name'   => 'Norwegian Bokmål (Norway)',
-            'native' => '',
+            'native' => 'norsk bokmål',
             'rtl'    => false
         ],
         'nb_SJ'         => [
             'name'   => 'Norwegian Bokmål (Svalbard & Jan Mayen)',
-            'native' => '',
+            'native' => 'norsk bokmål',
             'rtl'    => false
         ],
         'nn'            => [
             'name'   => 'Norwegian Nynorsk',
-            'native' => '',
+            'native' => 'nynorsk',
             'rtl'    => false
         ],
         'nn_NO'         => [
             'name'   => 'Norwegian Nynorsk (Norway)',
-            'native' => '',
+            'native' => 'nynorsk',
             'rtl'    => false
         ],
         'or'            => [
             'name'   => 'Oriya',
-            'native' => '',
+            'native' => 'ଓଡ଼ିଆ',
             'rtl'    => false
         ],
         'or_IN'         => [
             'name'   => 'Oriya (India)',
-            'native' => '',
+            'native' => 'ଓଡ଼ିଆ',
             'rtl'    => false
         ],
         'om'            => [
             'name'   => 'Oromo',
-            'native' => '',
+            'native' => 'Oromoo',
             'rtl'    => false
         ],
         'om_ET'         => [
             'name'   => 'Oromo (Ethiopia)',
-            'native' => '',
+            'native' => 'Oromoo',
             'rtl'    => false
         ],
         'om_KE'         => [
             'name'   => 'Oromo (Kenya)',
-            'native' => '',
+            'native' => 'Oromoo',
             'rtl'    => false
         ],
         'os'            => [
