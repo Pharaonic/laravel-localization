@@ -171,23 +171,25 @@ class Localization
             $routes();
         });
 
-        $uri = array_values(array_filter(explode('/', request()->getRequestUri())));
-        $localized = isset($uri[0]) && $this->isSupportedLocale($uri[0]) ? $uri[0] : null;
+        if (!$request->expectsJson()) {
+            $uri = array_values(array_filter(explode('/', request()->getRequestUri())));
+            $localized = isset($uri[0]) && $this->isSupportedLocale($uri[0]) ? $uri[0] : null;
 
-        if (!$localized && !$this->hideDefault) {
-            if ($this->forceRedirect) {
-                return Redirect::to(rtrim($request->getScheme() . '://' . $request->getHost() . ($request->getPort() ? ':' . $request->getPort() : null) . '/' . $this->default . $request->getRequestUri(), '/'))->send();
-            } else {
-                return abort(404);
+            if (!$localized && !$this->hideDefault) {
+                if ($this->forceRedirect) {
+                    return Redirect::to(rtrim($request->getScheme() . '://' . $request->getHost() . ($request->getPort() ? ':' . $request->getPort() : null) . '/' . $this->default . $request->getRequestUri(), '/'))->send();
+                } else {
+                    return abort(404);
+                }
             }
-        }
 
-        if ($localized) {
-            if ($localized == $this->default && $this->hideDefault) {
-                unset($uri[0]);
-                return Redirect::to(implode('/', $uri))->send();
-            } else {
-                $this->setLocale($localized);
+            if ($localized) {
+                if ($localized == $this->default && $this->hideDefault) {
+                    unset($uri[0]);
+                    return Redirect::to(implode('/', $uri))->send();
+                } else {
+                    $this->setLocale($localized);
+                }
             }
         }
     }
