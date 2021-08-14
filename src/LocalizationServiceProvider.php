@@ -2,7 +2,9 @@
 
 namespace Pharaonic\Laravel\Localization;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Pharaonic\Laravel\Localization\Classes\Localization;
 
@@ -30,6 +32,28 @@ class LocalizationServiceProvider extends ServiceProvider
 
         Route::macro('localized', function ($routes) {
             locale()->detect($routes);
+        });
+
+        URL::macro('LocalizedSignedRoute', function ($locale, $name, $parameters = [], $expiration = null, $absolute = true) {
+            $this->ensureSignedRouteParametersAreNotReserved(
+                $parameters = Arr::wrap($parameters)
+            );
+
+            if ($expiration) {
+                $parameters = $parameters + ['expires' => $this->availableAt($expiration)];
+            }
+
+            ksort($parameters);
+
+            $key = call_user_func($this->keyResolver);
+
+            return locale($locale)->route($name, $parameters + [
+                'signature' => hash_hmac('sha256', locale($locale)->route($name, $parameters, $absolute), $key),
+            ], $absolute);
+        });
+
+        URL::macro('temporaryLocalizedSignedRoute', function ($locale, $name, $expiration, $parameters = [], $absolute = true) {
+            return $this->LocalizedSignedRoute($locale, $name, $parameters, $expiration, $absolute);
         });
 
 
