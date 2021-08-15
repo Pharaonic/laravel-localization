@@ -82,6 +82,13 @@ class Localization
      */
     private $ccTLDs_list = [];
 
+    /**
+     * List of Prefixes.
+     *
+     * @var array
+     */
+    private $prefixes = [];
+
 
     /**
      * Create a new instance
@@ -97,6 +104,7 @@ class Localization
         $this->supported        = $config['supported'];
         $this->list             = $config['list'];
         $this->ccTLDs_list      = $config['ccTLDs-list'];
+        $this->prefixes         = $config['prefixes'];
 
         $this->setlocale($this->current = $this->default ?? app()->getLocale());
     }
@@ -167,31 +175,55 @@ class Localization
      */
     private function sub_directory(Request $request, callable $routes)
     {
-        Route::prefix('/{locale?}')->group(function () use ($routes) {
-            $routes();
-        });
+        $prefix = null;
+        $uri = trim($request->getRequestUri(), '/');
+        $url = !empty($uri) ? str_replace('/' . $uri, '', $request->fullUrl()) : $request->fullUrl();
 
-        if (!$request->expectsJson()) {
-            $uri = array_values(array_filter(explode('/', request()->getRequestUri())));
-            $localized = isset($uri[0]) && $this->isSupportedLocale($uri[0]) ? $uri[0] : null;
+        // Check is there prefix
+        if ($request->is($this->prefixes)) {
+            foreach ($this->prefixes as $prefix) {
+                if ($request->is($prefix)) {
+                    $prefix = rtrim($prefix, '/*');
+                    $uri = substr($uri, strlen($prefix . '/'));
+                    break;
+                }
+            }
+        }
 
-            if (!$localized && !$this->hideDefault) {
+        $uriArray = explode('/', $uri);
+        $locale = $uriArray[0] ?? null;
+
+        // IF there is no locale in URL.
+        if (!$locale && !$this->hideDefault) {
+            if ($this->forceRedirect) {
+                return Redirect::to($url . '/' . ($prefix ? $prefix . '/' : null) . $this->default)->send();
+            } else {
+                return abort(404);
+            }
+        }
+
+        // IF Supported or not
+        if ($this->isSupportedLocale($locale)) {
+            if ($locale == $this->default && $this->hideDefault) {
+                unset($uriArray[0]);
+                return Redirect::to(($prefix ? $prefix . '/' : null) . implode('/', $uriArray))->send();
+            } else {
+                $this->setLocale($locale);
+
+                if (!$this->hideDefault || ($this->hideDefault && $this->current != $this->default))
+                    return '/{locale?}';
+            }
+        } else {
+            if (!$this->hideDefault) {
                 if ($this->forceRedirect) {
-                    return Redirect::to(rtrim($request->getScheme() . '://' . $request->getHost() . ($request->getPort() ? ':' . $request->getPort() : null) . '/' . $this->default . $request->getRequestUri(), '/'))->send();
+                    return Redirect::to($url . '/' . ($prefix ? $prefix . '/' : null) . $this->default . (!empty($uriArray) ? '/' . implode('/', $uriArray) : null))->send();
                 } else {
                     return abort(404);
                 }
             }
-
-            if ($localized) {
-                if ($localized == $this->default && $this->hideDefault) {
-                    unset($uri[0]);
-                    return Redirect::to(implode('/', $uri))->send();
-                } else {
-                    $this->setLocale($localized);
-                }
-            }
         }
+
+        return '';
     }
 
     /**
@@ -203,21 +235,9 @@ class Localization
     public function detect($routes)
     {
         // FOR CONSOLE
-        if (app()->runningInConsole()) {
-            switch ($this->type) {
-                case 'sub-directory':
-                    Route::prefix('/{locale?}')->group(function () use ($routes) {
-                        $routes();
-                    });
-                    break;
-                default:
-                    $routes();
-                    break;
-            }
-            return;
-        }
+        if (app()->runningInConsole()) return;
 
-        // FOR WEB
+        // FOR WEB/API
         $request    = request();
         return $this->{str_replace('-', '_', $this->type)}($request, $routes);
     }
@@ -363,7 +383,18 @@ class Localization
     {
         $locale = $this->tmp ?? $this->current;
 
-        if ($locale == $this->default && $this->hideDefault)
+
+        if ($this->hideDefault && $this->current == $this->default && $this->type == 'sub-directory') {
+            if ($locale == $this->current)
+                return route($key, $params);
+
+            $route = Route::getRoutes()->getByName($key);
+            $route->uri = '{locale?}/' . $route->uri;
+
+            return app('url')->toRoute($route, array_merge($params, ['locale' => $locale]), true);
+        }
+
+        if ($this->type != 'sub-directory' && $locale == $this->default && $this->hideDefault)
             return route($key, $params);
 
         return route($key, array_merge(['locale' => $locale . ($this->type == 'sub-domain' ? '.' : null)], $params));
