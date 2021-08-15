@@ -26,8 +26,6 @@ Route::localized(function(){
         return 'Pharaonic';
     });
 });
-
-// Output : {locale?}/page
 ````
 
 ## Documentation
