@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Pharaonic\Laravel\Localization\Classes\Localization;
+use Pharaonic\Laravel\Localization\Middleware\LocaleRemover;
 
 class LocalizationServiceProvider extends ServiceProvider
 {
@@ -40,7 +41,7 @@ class LocalizationServiceProvider extends ServiceProvider
             $type = config('Pharaonic.localization.type', config('laravel-localization.type'));
 
             if ($type == 'sub-directory')
-                Route::prefix(locale()->detect($routes))->group($routes);
+                Route::prefix(locale()->detect($routes))->middleware(LocaleRemover::class)->group($routes);
             else
                 locale()->detect($routes);
         });

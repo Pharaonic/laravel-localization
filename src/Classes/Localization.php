@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
  *  Laravel URL Localization Manager
  *  ccTLDs, sub-domains, sub-directories
  *
- * @version 1.0.0
+ * @version 1.1.0
  * @author Moamen Eltouny (Raggi) <raggi@raggitech.com>
  */
 class Localization
@@ -376,13 +376,14 @@ class Localization
      * Get localized route
      *
      * @param string $key
-     * @param array $params
+     * @param mixed $params
      * @return string
      */
-    public function route(string $key, array $params = [])
+    public function route(string $key, $params = [])
     {
         $locale = $this->tmp ?? $this->current;
 
+        if (!is_array($params)) $params = [$params];
 
         if ($this->hideDefault && $this->current == $this->default && $this->type == 'sub-directory') {
             if ($locale == $this->current)
