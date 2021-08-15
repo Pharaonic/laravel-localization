@@ -47,9 +47,14 @@ class LocalizationServiceProvider extends ServiceProvider
         });
 
         URL::macro('LocalizedSignedRoute', function ($locale, $name, $parameters = [], $expiration = null, $absolute = true) {
-            $this->ensureSignedRouteParametersAreNotReserved(
-                $parameters = Arr::wrap($parameters)
-            );
+
+            $parameters = Arr::wrap($parameters);
+
+            if (array_key_exists('signature', $parameters)) {
+                throw new InvalidArgumentException(
+                    '"Signature" is a reserved parameter when generating signed routes. Please rename your route parameter.'
+                );
+            }
 
             if ($expiration) {
                 $parameters = $parameters + ['expires' => $this->availableAt($expiration)];
