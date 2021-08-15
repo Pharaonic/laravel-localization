@@ -28,10 +28,21 @@ class LocalizationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Publishes
+        $this->publishes([
+            __DIR__ . '/config.php' => config_path('Pharaonic/localization.php'),
+        ], ['pharaonic', 'laravel-localization']);
+
+
         $this->app->instance('Localization', new Localization);
 
         Route::macro('localized', function ($routes) {
-            locale()->detect($routes);
+            $type = config('Pharaonic.localization.type', config('laravel-localization.type'));
+
+            if ($type == 'sub-directory')
+                Route::prefix(locale()->detect($routes))->group($routes);
+            else
+                locale()->detect($routes);
         });
 
         URL::macro('LocalizedSignedRoute', function ($locale, $name, $parameters = [], $expiration = null, $absolute = true) {
@@ -55,11 +66,5 @@ class LocalizationServiceProvider extends ServiceProvider
         URL::macro('temporaryLocalizedSignedRoute', function ($locale, $name, $expiration, $parameters = [], $absolute = true) {
             return $this->LocalizedSignedRoute($locale, $name, $parameters, $expiration, $absolute);
         });
-
-
-        // Publishes
-        $this->publishes([
-            __DIR__ . '/config.php' => config_path('Pharaonic/localization.php'),
-        ], ['pharaonic', 'laravel-localization']);
     }
 }
