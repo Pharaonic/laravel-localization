@@ -39,6 +39,18 @@ return [
 
 
     /**
+     *  List of prefixes
+     *  That might be before the locale parameter in the url.
+     *
+     *  Used with type [sub-directory]
+     *  MUST END WITH /*
+     */
+    'prefixes'      => [
+        'api/*'
+    ],
+
+
+    /**
      *  ONLY supported locales list.
      *  You can customize it as you want, but it should be locales codes already exists in Locales List.
      */
