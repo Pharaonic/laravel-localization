@@ -5,7 +5,7 @@ namespace Pharaonic\Laravel\Localization\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class LocleRemover
+class LocaleRemover
 {
     /**
      * Handle an incoming request.
