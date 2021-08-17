@@ -205,8 +205,12 @@ class Localization
         // IF Supported or not
         if ($this->isSupportedLocale($locale)) {
             if ($locale == $this->default && $this->hideDefault) {
-                unset($uriArray[0]);
-                return Redirect::to(($prefix ? $prefix . '/' : null) . implode('/', $uriArray))->send();
+                if ($request->expectsJson()) {
+                    return '/{locale?}';
+                } else {
+                    unset($uriArray[0]);
+                    return Redirect::to(($prefix ? $prefix . '/' : null) . implode('/', $uriArray))->send();
+                }
             } else {
                 $this->setLocale($locale);
 
