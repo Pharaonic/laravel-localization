@@ -73,7 +73,7 @@ class Localization
      *
      * @var array
      */
-    private $list = [];
+    public $list = [];
 
     /**
      * List of ccTLDs.
