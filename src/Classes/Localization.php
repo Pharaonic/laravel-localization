@@ -399,7 +399,7 @@ class Localization
             return app('url')->toRoute($route, array_merge($params, ['locale' => $locale]), true);
         }
 
-        if ($this->type != 'sub-directory' && $locale == $this->default && $this->hideDefault)
+        if ($locale == $this->default && $this->hideDefault)
             return route($key, $params);
 
         return route($key, array_merge(['locale' => $locale . ($this->type == 'sub-domain' ? '.' : null)], $params));
