@@ -394,7 +394,7 @@ class Localization
                 return route($key, $params);
 
             $route = Route::getRoutes()->getByName($key);
-            
+
             if (substr($route->getPrefix(), 0, 9) != '{locale?}')
                 $route->prefix('/{locale?}');
 
@@ -420,12 +420,15 @@ class Localization
     }
 
     /**
-     * Get Localized route-url
+     * Get Localized route.
      *
      * @return string
      */
-    public function currentUrl()
+    public function current()
     {
-        return $this->route(Route::current()->getName(), Route::current()->parameters());
+        if (!($name = Route::current()->getName()))
+            throw new Exception('You should set name for that route.');
+
+        return $this->route($name, Route::current()->parameters());
     }
 }
