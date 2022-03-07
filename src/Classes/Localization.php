@@ -394,7 +394,9 @@ class Localization
                 return route($key, $params);
 
             $route = Route::getRoutes()->getByName($key);
-            $route->uri = '{locale?}/' . $route->uri;
+            
+            if (substr($route->getPrefix(), 0, 9) != '{locale?}')
+                $route->prefix('/{locale?}');
 
             return app('url')->toRoute($route, array_merge($params, ['locale' => $locale]), true);
         }
