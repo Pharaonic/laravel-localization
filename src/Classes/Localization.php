@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
  *  Laravel URL Localization Manager
  *  ccTLDs, sub-domains, sub-directories
  *
- * @version 1.2.4
+ * @version 1.3.3
  * @author Moamen Eltouny (Raggi) <raggi@raggitech.com>
  */
 class Localization
@@ -389,22 +389,21 @@ class Localization
 
         if (!is_array($params)) $params = [$params];
 
-        if ($this->hideDefault && $this->current == $this->default && $this->type == 'sub-directory') {
-            if ($locale == $this->current)
-                return route($key, $params);
+        // Default Locale
+        if ($locale == $this->default && $this->hideDefault)
+            return route($key, $params);
 
+        // Depends on Type
+        if ($this->type == 'sub-directory') {
             $route = Route::getRoutes()->getByName($key);
 
             if (substr($route->getPrefix(), 0, 9) != '{locale?}')
                 $route->prefix('/{locale?}');
 
             return app('url')->toRoute($route, array_merge($params, ['locale' => $locale]), true);
+        } else {
+            return route($key, array_merge(['locale' => $locale . ($this->type == 'sub-domain' ? '.' : null)], $params));
         }
-
-        if ($this->type != 'sub-directory' && $locale == $this->default && $this->hideDefault)
-            return route($key, $params);
-
-        return route($key, array_merge(['locale' => $locale . ($this->type == 'sub-domain' ? '.' : null)], $params));
     }
 
     /**
@@ -414,9 +413,31 @@ class Localization
      * @param array $params
      * @return string
      */
-    public function unLocalizedRoute(string $key, array $params = [])
+    public function unLocalizedRoute(string $key, $params = [])
     {
         return route($key, $params);
+    }
+
+    /**
+     * Get localized URL
+     *
+     * @param string $uri
+     * @param mixed $params
+     * @return string
+     */
+    public function url(string $uri, $params = [])
+    {
+        $locale = $this->tmp ?? $this->current;
+
+        if ($this->type == 'sub-directory') {
+            if ($locale == $this->default && $this->hideDefault) {
+                return urL($uri, $params);
+            } else {
+                return urL($locale . '/' . $uri, $params);
+            }
+        } else {
+            // TASK : NOT SUB-DIRECTORY
+        }
     }
 
     /**
@@ -426,9 +447,24 @@ class Localization
      */
     public function current()
     {
-        if (!($name = Route::current()->getName()))
-            throw new Exception('You should set name for that route.');
+        if ($params = request()->getQueryString())
+            parse_str($params, $params);
 
-        return $this->route($name, Route::current()->parameters());
+        // Has Route Name
+        if (($route = Route::current()) && ($name = $route->getName()))
+            return $this->route($name, $route->parameters());
+
+        // Has Not Route Name
+        if ($this->type == 'sub-directory') {
+            $uri = ltrim(request()->getRequestUri(), '/');
+            $uri = explode('/', $uri);
+
+            if (isset($uri[0]) && in_array($uri[0], $this->supported))
+                array_shift($uri);
+
+            return $this->url(implode('/', $uri), $params);
+        } else {
+            // TASK : NOT SUB-DIRECTORY
+        }
     }
 }
