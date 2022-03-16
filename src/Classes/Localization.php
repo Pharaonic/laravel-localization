@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 /**
  *  Laravel URL Localization Manager
@@ -396,6 +397,9 @@ class Localization
         // Depends on Type
         if ($this->type == 'sub-directory') {
             $route = Route::getRoutes()->getByName($key);
+            
+            if(!$route)
+                throw new RouteNotFoundException('[' . $key . '] Route has not found.');
 
             if (substr($route->getPrefix(), 0, 9) != '{locale?}')
                 $route->prefix('/{locale?}');
