@@ -401,7 +401,7 @@ class Localization
             if(!$route)
                 throw new RouteNotFoundException('[' . $key . '] Route has not found.');
 
-            if (substr($route->getPrefix(), 0, 9) != '{locale?}')
+            if (substr(ltrim($route->getPrefix(), '/'), 0, 9) != '{locale?}')
                 $route->prefix('/{locale?}');
 
             return app('url')->toRoute($route, array_merge($params, ['locale' => $locale]), true);
