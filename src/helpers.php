@@ -6,7 +6,7 @@
  * @param string $locale
  * @return Pharaonic\Laravel\Localization\Classes\Localization
  */
-function locale(?string $locale)
+function locale(?string $locale = null)
 {
     return app('Localization')->setTempLocale($locale);
 }
