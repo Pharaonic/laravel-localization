@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here.
 
-## 7.0.0 - Unreleased
+## 7.0.0 - 2026-11-19
 
 ### Compatibility
 
@@ -10,7 +10,7 @@ All notable changes to this project are documented here.
 - The same API and behavior as 6.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
 - Localized routes work with Laravel 7's compiled route cache.
 
-## 6.0.0 - Unreleased
+## 6.0.0 - 2026-11-19
 
 A redesign of the package as a localization engine with two modes. 1.x applications need the steps in `UPGRADING.md`.
 
