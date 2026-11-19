@@ -1,0 +1,26 @@
+- Getting Started
+  - [Overview](#overview)
+  - [Installation](#installation)
+  - [Concepts](#concepts)
+  - [Configuration](#configuration)
+- Path Mode
+  - [Path Routing](#path-routing)
+  - [Translated Routes](#translated-routes)
+  - [Localized URLs](#localized-urls)
+  - [Localized Model Binding](#localized-model-binding)
+  - [SEO and Language Switching](#seo-and-language-switching)
+- Negotiated Mode
+  - [Negotiated Localization](#negotiated-localization)
+  - [Custom Resolvers](#custom-resolvers)
+  - [Locale Preferences](#locale-preferences)
+- Advanced
+  - [Signed URLs](#signed-urls)
+  - [Diagnostics](#diagnostics)
+- API Reference
+  - [Methods & Classes](#api-reference)
+- Examples
+  - [Use Cases](#examples)
+  - [Upgrading from 1.x](#upgrading)
+  - [Troubleshooting](#troubleshooting)
+- Community
+  - [Contributors](#contributors)
