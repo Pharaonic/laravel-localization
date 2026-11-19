@@ -33,7 +33,7 @@ Configuration keys (`pharaonic.localization.*`), publish tags, and registered Bl
 - Request state lives only on the request (`LocaleContext`, attribute `pharaonic.localization`); the manager and catalog are stateless singletons. Middleware restores the previous application locale in `terminate()`.
 - The locale middleware is inserted before `SubstituteBindings` in the router's middleware priority, at boot and again when the HTTP kernel is resolved (the kernel overwrites the router's list).
 - Nothing redirects except the explicit canonical `/{default}/...` → `/...` (GET/HEAD, 301), and nothing writes preferences except `remember()`/`forget()`.
-- From 8.x the route-cache test runs a real `route:cache` through Testbench's remote process; `testbench.yaml` registers the package provider and the fixture `RouteCacheServiceProvider` for it. It needs a Testbench release whose testbench-core provides `remote()`, above the line table's floor: ^6.42 on 8.x (core 6.46) and ^7.35 on 9.x (core 7.35). From Testbench 7 the CLI also caches its own `_workbench` routes, which the test ignores.
+- From 8.x the route-cache test runs a real `route:cache` through Testbench's remote process; `testbench.yaml` registers the package provider and the fixture `RouteCacheServiceProvider` for it. It needs a Testbench release whose testbench-core provides `remote()`, above the line table's floor: ^6.42 on 8.x (core 6.46), ^7.35 on 9.x (core 7.35) and ^8.15 on 10.x (core 8.15). From Testbench 7 the CLI also caches its own `_workbench` routes, which the test ignores.
 
 ## Branch notes
 
