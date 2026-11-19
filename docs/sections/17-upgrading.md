@@ -1,10 +1,10 @@
 ## Upgrading from 1.x
 
-7.0 is a redesign. Plan the upgrade route by route; `UPGRADING.md` in the repository has the full checklist.
+8.0 is a redesign. Plan the upgrade route by route; `UPGRADING.md` in the repository has the full checklist.
 
 ### What changed
 
-| 1.x | 7.x |
+| 1.x | 8.x |
 | --- | --- |
 | `type` = `sub-directory` | Path mode with `Route::localized()` |
 | `type` = `sub-domain` or `ccTLDs` | Removed: use Laravel's `Route::domain()` and set the locale in your own middleware or a custom resolver |

@@ -3,12 +3,13 @@
 Wrap the routes that should exist in every language in `Route::localized()`. Inside it, you write ordinary Laravel routes.
 
 ```php title="routes/web.php"
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::localized(function (): void {
-    Route::get('/', 'ProductController@home')->name('home');
-    Route::get('/products', 'ProductController@index')->name('products.index');
-    Route::get('/products/{product}', 'ProductController@show')->name('products.show');
+    Route::get('/', [ProductController::class, 'home'])->name('home');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 });
 ```
 
@@ -35,9 +36,11 @@ Each route runs the `SetPathLocale` middleware, which applies its locale, sets `
 Everything Laravel groups provide keeps working: prefixes, name prefixes, middleware, domains, `where` constraints, optional parameters, resources and controller groups. Outer prefixes come before the locale prefix.
 
 ```php title="routes/web.php"
+use App\Http\Controllers\ProductController;
+
 Route::middleware('web')->prefix('shop')->name('shop.')->group(function (): void {
     Route::localized(function (): void {
-        Route::resource('products', 'ProductController')->only(['index', 'show']);
+        Route::resource('products', ProductController::class)->only(['index', 'show']);
     });
 });
 
