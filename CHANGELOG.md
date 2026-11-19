@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here.
 
+## 13.0.0 - Unreleased
+
+### Compatibility
+
+- Laravel 13.0+ on PHP 8.3, 8.4 or 8.5, with `ext-intl`. PHP 8.2 is not supported on this line.
+- The same API and behavior as 12.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
+
 ## 12.0.0 - Unreleased
 
 ### Compatibility
