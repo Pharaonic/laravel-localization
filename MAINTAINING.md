@@ -10,7 +10,7 @@ Localized routing for Laravel: `Route::localized()` registers static, cacheable 
 
 One branch per Laravel major, from `6.x` to the newest major, all carrying the redesign (first released as `N.0.0` on each line). Each line's PHP range, `illuminate/*` constraint, and tools follow the Pharaonic Laravel line table. `6.x` runs PHPUnit, because Pest cannot install on Laravel 6; later lines run Pest. `develop` follows the newest line. 1.x (`main`, tags `1.0.0`–`1.3.7`) is the legacy engine and is not developed further.
 
-Per-line differences beyond constraints: Laravel 6 and 7 have no `signed:relative` middleware (docs show `hasValidSignature(false)`). Their tests reproduce `route:cache` and `config:cache` in-process because Testbench 4 and 5 have no remote process; 7.x loads the compiled routes Laravel 7 caches.
+Per-line differences beyond constraints: Laravel 6 and 7 have no `signed:relative` middleware (docs show `hasValidSignature(false)`), and their tests reproduce `route:cache` in-process because Testbench 4 and 5 have no remote process. From 8.x the docs use `signed:relative`, `[Controller::class, 'method']` routes and `App\Models`, and the tests run a real `route:cache` through Testbench's remote process.
 
 ## Core library
 
@@ -33,7 +33,7 @@ Configuration keys (`pharaonic.localization.*`), publish tags, and registered Bl
 - Request state lives only on the request (`LocaleContext`, attribute `pharaonic.localization`); the manager and catalog are stateless singletons. Middleware restores the previous application locale in `terminate()`.
 - The locale middleware is inserted before `SubstituteBindings` in the router's middleware priority, at boot and again when the HTTP kernel is resolved (the kernel overwrites the router's list).
 - Nothing redirects except the explicit canonical `/{default}/...` → `/...` (GET/HEAD, 301), and nothing writes preferences except `remember()`/`forget()`.
-- The route-cache test runs a real `route:cache` through Testbench's remote process; `testbench.yaml` registers the provider for it.
+- From 8.x the route-cache test runs a real `route:cache` through Testbench's remote process; `testbench.yaml` registers the package provider and the fixture `RouteCacheServiceProvider` for it. On 8.x this needs `orchestra/testbench` ^6.42 rather than the line table's ^6.25: testbench-core gained `remote()` in 6.46, and 6.42 is the first Testbench release that requires a core with it.
 
 ## Branch notes
 

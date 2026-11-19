@@ -9,6 +9,7 @@ Each supported Laravel major has its own line: `6.x`, `7.x`, and so on up to the
 ```text
 6.x  → Laravel 6
 7.x  → Laravel 7
+8.x  → Laravel 8
 ...
 13.x → Laravel 13
 ```
