@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here.
 
-## 6.0.0 - Unreleased
+## 6.0.0 - 2026-11-19
 
 A redesign of the package as a localization engine with two modes. 1.x applications need the steps in `UPGRADING.md`.
 
