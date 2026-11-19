@@ -4,8 +4,8 @@ Install the package with Composer. The service provider, the `Route::localized()
 
 ### Requirements
 
-- PHP 8.2, 8.3 or 8.4
-- Laravel 11.x (11.0 or later)
+- PHP 8.2, 8.3, 8.4 or 8.5
+- Laravel 12.x (12.0 or later)
 - `ext-intl`: it provides locale display names for `name()` and `nativeName()`
 
 ### Composer Installation
