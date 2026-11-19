@@ -71,6 +71,9 @@ test('it exposes locale metadata and matching through locale', function () {
 });
 
 test('it registers 100 routes in 3 locales as 900 static routes', function () {
+    // Laravel 12 registers the local disk's storage routes in every application.
+    $before = Route::getRoutes()->count();
+
     Route::localized(function (): void {
         for ($i = 0; $i < 100; $i++) {
             Route::get("/page-{$i}/{id}", PageController::class)->name("page.{$i}");
@@ -78,6 +81,6 @@ test('it registers 100 routes in 3 locales as 900 static routes', function () {
     });
 
     // 100 routes x 3 locales, plus one GET canonical redirect per default route.
-    expect(Route::getRoutes()->count())->toBe(400)
+    expect(Route::getRoutes()->count() - $before)->toBe(400)
         ->and(locale()->route('page.99', ['id' => 1], 'fr', false))->toBe('/fr/page-99/1');
 });
