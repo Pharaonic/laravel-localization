@@ -5,7 +5,7 @@ Install the package with Composer. The service provider, the `Route::localized()
 ### Requirements
 
 - PHP 8.0
-- Laravel 6.x (6.20 or later)
+- Laravel 7.x (7.30 or later)
 - `ext-intl`: it provides locale display names for `name()` and `nativeName()`
 
 ### Composer Installation
