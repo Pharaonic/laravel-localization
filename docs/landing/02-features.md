@@ -10,7 +10,7 @@ items:
     text: '`Route::localized()` registers one real route per locale, safe for `route:cache`.'
   - icon: translate
     title: Translated URLs
-    text: Translate path segments with `resources/lang/{locale}/routes.php`, Unicode included.
+    text: Translate path segments with `lang/{locale}/routes.php`, Unicode included.
   - icon: switch
     title: Resolver Pipeline
     text: User, session, cookie, `Accept-Language` or your own class, in your order.

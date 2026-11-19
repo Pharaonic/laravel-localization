@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here.
 
+## 9.0.0 - Unreleased
+
+### Compatibility
+
+- Laravel 9.0+ on PHP 8.0, 8.1 or 8.2, with `ext-intl`.
+- The same API and behavior as 8.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
+- Route translations are read from Laravel 9's `lang/` directory, or `resources/lang/` in upgraded applications, through the translator.
+
 ## 8.0.0 - Unreleased
 
 ### Compatibility

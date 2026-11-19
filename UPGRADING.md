@@ -1,22 +1,22 @@
 # Upgrading
 
-## From 1.x to 8.0
+## From 1.x to 9.0
 
-8.0 replaces the 1.x engine. URLs are now static routes registered once per locale, and locale negotiation is a separate, explicit mode. Upgrade route by route and test with a clean browser cache.
+9.0 replaces the 1.x engine. URLs are now static routes registered once per locale, and locale negotiation is a separate, explicit mode. Upgrade route by route and test with a clean browser cache.
 
 ### 1. Requirements
 
-8.0 requires PHP 8.0 or 8.1, Laravel 8.75+ and `ext-intl`. It requires `illuminate/*` packages instead of `laravel/framework`.
+9.0 requires PHP 8.0, 8.1 or 8.2, Laravel 9.0+ and `ext-intl`. It requires `illuminate/*` packages instead of `laravel/framework`.
 
 ### 2. Configuration
 
-Delete `config/Pharaonic/localization.php` (8.0 throws an exception while it exists), then publish the new file:
+Delete `config/Pharaonic/localization.php` (9.0 throws an exception while it exists), then publish the new file:
 
 ```bash
 php artisan vendor:publish --tag=localization-config
 ```
 
-| 1.x key | 8.0 |
+| 1.x key | 9.0 |
 | --- | --- |
 | `type` = `sub-directory` | Path mode, `Route::localized()` |
 | `type` = `sub-domain`, `ccTLDs` | Removed (see step 6) |
@@ -66,7 +66,7 @@ Route::localized(function (): void {
 
 ### 4. URL helpers
 
-| 1.x | 8.0 |
+| 1.x | 9.0 |
 | --- | --- |
 | `locale('ar')->route('page', $params)` | `locale()->route('page', $params, 'ar')` |
 | `locale()->route('page')` | `locale()->route('page')` (current locale) |
@@ -89,7 +89,7 @@ Route::localized(function (): void {
 // 1.x
 URL::LocalizedSignedRoute('ar', 'invite', ['invite' => 1]);
 
-// 8.0
+// 9.0
 locale()->signedRoute('invite', ['invite' => 1], locale: 'ar');
 locale()->temporarySignedRoute('invite', now()->addHour(), ['invite' => 1], locale: 'ar');
 ```
@@ -113,7 +113,7 @@ Route::domain('{account}.example.com')->middleware('localization:tenant')->group
 
 ### 7. APIs
 
-1.x served JSON requests from localized routes. In 8.0, keep API URLs unprefixed and add the `localization` middleware:
+1.x served JSON requests from localized routes. In 9.0, keep API URLs unprefixed and add the `localization` middleware:
 
 ```php
 use App\Http\Controllers\ApiProductController;
@@ -130,7 +130,7 @@ Route::middleware('localization')->prefix('api')->group(function (): void {
 - [ ] Every `locale($code)` call is rewritten.
 - [ ] Every `locale()->current()` used as a URL is replaced.
 - [ ] Links to the default locale use the unprefixed URL.
-- [ ] Translated segments, if any, live in `resources/lang/{locale}/routes.php`.
+- [ ] Translated segments, if any, live in `lang/{locale}/routes.php` (or `resources/lang/{locale}/routes.php`).
 - [ ] `php artisan route:clear && php artisan localization:doctor` passes.
 
 ### 9. Cached redirects

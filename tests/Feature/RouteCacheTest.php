@@ -26,6 +26,11 @@ function routeSnapshot(): array
     $routes = [];
 
     foreach (Route::getRoutes()->getRoutes() as $route) {
+        // The Testbench CLI adds its own Workbench routes to the routes it caches.
+        if (str_starts_with($route->uri(), '_workbench')) {
+            continue;
+        }
+
         $routes[] = implode('|', $route->methods()).' '.$route->uri().' '.$route->getName().' '.json_encode($route->getAction('localization'));
     }
 
