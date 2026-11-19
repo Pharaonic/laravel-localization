@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -20,12 +19,7 @@ beforeEach(function () {
             Route::get('/products/{product}', PageController::class)->name('products.show');
             Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
             Route::get('/invites/{invite}', PageController::class)->name('invites.accept')->middleware('signed');
-            // Laravel 7 has no signed:relative middleware; the application checks the relative signature.
-            Route::get('/relative/{invite}', function (Request $request) {
-                abort_unless($request->hasValidSignature(false), 403);
-
-                return ['locale' => app()->getLocale()];
-            })->name('invites.relative');
+            Route::get('/relative/{invite}', PageController::class)->name('invites.relative')->middleware('signed:relative');
         });
 
         Route::get('/dashboard', PageController::class)->name('dashboard');

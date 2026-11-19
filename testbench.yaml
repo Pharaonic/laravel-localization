@@ -1,5 +1,6 @@
 providers:
   - Pharaonic\Laravel\Localization\LocalizationServiceProvider
+  - Pharaonic\Laravel\Localization\Tests\Fixtures\RouteCacheServiceProvider
 
 env:
   APP_URL: http://localhost

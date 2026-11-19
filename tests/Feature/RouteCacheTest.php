@@ -3,15 +3,13 @@
 declare(strict_types=1);
 
 use Illuminate\Routing\CompiledRouteCollection;
-use Illuminate\Routing\Route as RoutingRoute;
-use Illuminate\Routing\RouteCollection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use function Orchestra\Testbench\remote;
 
-// Laravel 7's route:cache compiles the routes and the cached file loads the
-// var_export() of that compilation into a CompiledRouteCollection; config:cache
-// writes var_export() output. Both are reproduced in-process, without
-// Testbench's remote process (Testbench 6+).
+// route:cache runs for real in the Testbench CLI, which registers the fixture
+// RouteCacheServiceProvider from testbench.yaml; the reloaded application then
+// loads the compiled routes it wrote. config:cache writes var_export() output.
 
 function cachedRoutesFile(): string
 {
@@ -34,31 +32,6 @@ function routeSnapshot(): array
     sort($routes);
 
     return $routes;
-}
-
-/**
- * What Laravel 7's route:cache and its cached routes file do.
- */
-function cacheRoutes(): void
-{
-    $routes = Route::getRoutes();
-    expect($routes)->toBeInstanceOf(RouteCollection::class);
-
-    foreach ($routes as $route) {
-        expect($route)->toBeInstanceOf(RoutingRoute::class);
-        $route->prepareForSerialization();
-    }
-
-    $file = tempnam(sys_get_temp_dir(), 'localization-routes');
-
-    try {
-        file_put_contents($file, '<?php app(\'router\')->setCompiledRoutes('.var_export($routes->compile(), true).');'.PHP_EOL);
-        require $file;
-    } finally {
-        unlink($file);
-    }
-
-    expect(Route::getRoutes())->toBeInstanceOf(CompiledRouteCollection::class);
 }
 
 test('it serves identical routes and responses from cached routes', function () {
@@ -92,11 +65,22 @@ test('it serves identical routes and responses from cached routes', function () 
     $uncached = routeSnapshot();
     $uncachedResponses = $responses();
 
-    cacheRoutes();
+    remote('route:cache')->mustRun();
 
-    expect(routeSnapshot())->toBe($uncached)
-        ->and($responses())->toBe($uncachedResponses)
-        ->and($uncachedResponses['/ar'][0])->toBe(200)
+    try {
+        $this->reloadApplication();
+        $this->app->instance('translation.loader', $this->translations('lang'));
+        $this->app->forgetInstance('translator');
+        require $this->app->getCachedRoutesPath();
+
+        expect(Route::getRoutes())->toBeInstanceOf(CompiledRouteCollection::class)
+            ->and(routeSnapshot())->toBe($uncached)
+            ->and($responses())->toBe($uncachedResponses);
+    } finally {
+        remote('route:clear')->mustRun();
+    }
+
+    expect($uncachedResponses['/ar'][0])->toBe(200)
         ->and($uncachedResponses['/ar'][1]['locale'])->toBe('ar')
         ->and($uncachedResponses['/en/products/5?x=1'][0])->toBe(301)
         ->and($uncachedResponses['/en/products/5?x=1'][1])->toEndWith('/products/5?x=1')
