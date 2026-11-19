@@ -2,7 +2,7 @@
 
 A model can have a different route key in each locale, such as a translated slug, by implementing `HasLocalizedRouteKey`. No trait, column or database schema is required.
 
-```php title="app/Models/Post.php"
+```php title="app/Post.php"
 use Illuminate\Database\Eloquent\Model;
 use Pharaonic\Laravel\Localization\Contracts\HasLocalizedRouteKey;
 
