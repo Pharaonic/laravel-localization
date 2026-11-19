@@ -70,7 +70,7 @@ test('it exposes locale metadata and matching through locale', function () {
         ->and(locale()->source())->toBeNull();
 });
 
-test('it registers 100 routes in 3 locales as 900 static routes', function () {
+test('it registers 100 routes in 3 locales as 300 routes and 100 canonical redirects', function () {
     // Laravel 12 registers the local disk's storage routes in every application.
     $before = Route::getRoutes()->count();
 
