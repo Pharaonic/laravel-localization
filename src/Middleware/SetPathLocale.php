@@ -19,9 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class SetPathLocale
 {
-    public function __construct(private Application $app)
-    {
-    }
+    public function __construct(private Application $app) {}
 
     public function handle(Request $request, Closure $next): mixed
     {

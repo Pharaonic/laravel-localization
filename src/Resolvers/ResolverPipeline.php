@@ -23,8 +23,7 @@ final class ResolverPipeline
     public function __construct(
         private Container $container,
         private LocaleCatalog $catalog,
-    ) {
-    }
+    ) {}
 
     /**
      * @return array{locale: string|null, source: string|null, consulted: list<string>}

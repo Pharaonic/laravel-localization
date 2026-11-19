@@ -33,9 +33,7 @@ use RuntimeException;
  */
 final class LocalizationManager
 {
-    public function __construct(private LocaleCatalog $catalog)
-    {
-    }
+    public function __construct(private LocaleCatalog $catalog) {}
 
     /**
      * The active application locale (Laravel's App::getLocale()).

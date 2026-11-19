@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Routing\CompiledRouteCollection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 use function Orchestra\Testbench\remote;
 
 // route:cache runs for real in the Testbench CLI, which registers the fixture

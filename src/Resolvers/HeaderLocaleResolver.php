@@ -17,8 +17,7 @@ final class HeaderLocaleResolver implements LocaleResolver
         private string $header,
         private LocaleMatcher $matcher,
         private string $default,
-    ) {
-    }
+    ) {}
 
     public function resolve(Request $request): ?string
     {

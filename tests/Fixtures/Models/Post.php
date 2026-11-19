@@ -18,9 +18,7 @@ final class Post implements HasLocalizedRouteKey, UrlRoutable
         2 => ['en' => 'english-only'],
     ];
 
-    public function __construct(public int $id = 0)
-    {
-    }
+    public function __construct(public int $id = 0) {}
 
     public function getLocalizedRouteKey(string $locale): ?string
     {

@@ -9,6 +9,4 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 /**
  * The named route does not exist, or was not registered inside Route::localized().
  */
-final class LocalizedRouteNotFoundException extends RouteNotFoundException
-{
-}
+final class LocalizedRouteNotFoundException extends RouteNotFoundException {}

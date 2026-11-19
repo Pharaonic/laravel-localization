@@ -12,9 +12,7 @@ use Pharaonic\Laravel\Localization\Contracts\LocaleResolver;
  */
 final class SessionLocaleResolver implements LocaleResolver
 {
-    public function __construct(private string $key)
-    {
-    }
+    public function __construct(private string $key) {}
 
     public function resolve(Request $request): ?string
     {

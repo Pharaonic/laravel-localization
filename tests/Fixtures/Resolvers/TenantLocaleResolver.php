@@ -15,9 +15,7 @@ final class TenantLocaleResolver implements LocaleResolver
     /**
      * @param  array<string, string>  $tenants
      */
-    public function __construct(private array $tenants = [])
-    {
-    }
+    public function __construct(private array $tenants = []) {}
 
     public function resolve(Request $request): ?string
     {

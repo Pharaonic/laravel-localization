@@ -9,6 +9,4 @@ use RuntimeException;
 /**
  * A HasLocalizedRouteKey parameter has no route key in the requested locale.
  */
-final class MissingLocalizedRouteKeyException extends RuntimeException
-{
-}
+final class MissingLocalizedRouteKeyException extends RuntimeException {}
