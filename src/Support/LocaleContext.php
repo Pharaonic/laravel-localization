@@ -25,8 +25,7 @@ final class LocaleContext
         private string $mode,
         private string $previous,
         private array $consulted = [],
-    ) {
-    }
+    ) {}
 
     public static function of(Request $request): ?self
     {

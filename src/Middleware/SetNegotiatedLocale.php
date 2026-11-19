@@ -27,8 +27,7 @@ final class SetNegotiatedLocale
         private Application $app,
         private LocaleCatalog $catalog,
         private ResolverPipeline $pipeline,
-    ) {
-    }
+    ) {}
 
     public function handle(Request $request, Closure $next, string $profile = 'api'): mixed
     {

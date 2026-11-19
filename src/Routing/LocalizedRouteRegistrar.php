@@ -37,8 +37,7 @@ final class LocalizedRouteRegistrar
         private Router $router,
         private LocaleCatalog $catalog,
         private Loader $loader,
-    ) {
-    }
+    ) {}
 
     /**
      * The concrete route name of a logical route in a locale.
