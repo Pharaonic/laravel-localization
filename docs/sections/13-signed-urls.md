@@ -22,7 +22,7 @@ Route::localized(function (): void {
 });
 ```
 
-Laravel 6 has no `signed:relative` middleware. Check a relative URL in the controller instead:
+Laravel 7 has no `signed:relative` middleware. Check a relative URL in the controller instead:
 
 ```php title="app/Http/Controllers/AcceptInviteController.php"
 abort_unless($request->hasValidSignature(false), 403);

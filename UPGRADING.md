@@ -1,22 +1,22 @@
 # Upgrading
 
-## From 1.x to 6.0
+## From 1.x to 7.0
 
-6.0 replaces the 1.x engine. URLs are now static routes registered once per locale, and locale negotiation is a separate, explicit mode. Upgrade route by route and test with a clean browser cache.
+7.0 replaces the 1.x engine. URLs are now static routes registered once per locale, and locale negotiation is a separate, explicit mode. Upgrade route by route and test with a clean browser cache.
 
 ### 1. Requirements
 
-6.0 requires PHP 8.0, Laravel 6.20+ and `ext-intl`. It requires `illuminate/*` packages instead of `laravel/framework`.
+7.0 requires PHP 8.0, Laravel 7.30+ and `ext-intl`. It requires `illuminate/*` packages instead of `laravel/framework`.
 
 ### 2. Configuration
 
-Delete `config/Pharaonic/localization.php` (6.0 throws an exception while it exists), then publish the new file:
+Delete `config/Pharaonic/localization.php` (7.0 throws an exception while it exists), then publish the new file:
 
 ```bash
 php artisan vendor:publish --tag=localization-config
 ```
 
-| 1.x key | 6.0 |
+| 1.x key | 7.0 |
 | --- | --- |
 | `type` = `sub-directory` | Path mode, `Route::localized()` |
 | `type` = `sub-domain`, `ccTLDs` | Removed (see step 6) |
@@ -64,7 +64,7 @@ Route::localized(function (): void {
 
 ### 4. URL helpers
 
-| 1.x | 6.0 |
+| 1.x | 7.0 |
 | --- | --- |
 | `locale('ar')->route('page', $params)` | `locale()->route('page', $params, 'ar')` |
 | `locale()->route('page')` | `locale()->route('page')` (current locale) |
@@ -87,7 +87,7 @@ Route::localized(function (): void {
 // 1.x
 URL::LocalizedSignedRoute('ar', 'invite', ['invite' => 1]);
 
-// 6.0
+// 7.0
 locale()->signedRoute('invite', ['invite' => 1], locale: 'ar');
 locale()->temporarySignedRoute('invite', now()->addHour(), ['invite' => 1], locale: 'ar');
 ```
@@ -111,7 +111,7 @@ Route::domain('{account}.example.com')->middleware('localization:tenant')->group
 
 ### 7. APIs
 
-1.x served JSON requests from localized routes. In 6.0, keep API URLs unprefixed and add the `localization` middleware:
+1.x served JSON requests from localized routes. In 7.0, keep API URLs unprefixed and add the `localization` middleware:
 
 ```php
 Route::middleware('localization')->prefix('api')->group(function (): void {

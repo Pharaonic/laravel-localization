@@ -2,47 +2,67 @@
 
 declare(strict_types=1);
 
-namespace Pharaonic\Laravel\Localization\Tests\Feature;
-
+use Illuminate\Routing\CompiledRouteCollection;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Routing\RouteCollection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-use Pharaonic\Laravel\Localization\Tests\TestCase;
+
+// Laravel 7's route:cache compiles the routes and the cached file loads the
+// var_export() of that compilation into a CompiledRouteCollection; config:cache
+// writes var_export() output. Both are reproduced in-process, without
+// Testbench's remote process (Testbench 6+).
+
+function cachedRoutesFile(): string
+{
+    return __DIR__.'/../Fixtures/routes/localized.php';
+}
 
 /**
- * Laravel 6's route:cache serializes every route and the cached file unserializes
- * them into a new RouteCollection; config:cache writes var_export() output. Both
- * are reproduced in-process, without Testbench's remote process (Testbench 6+).
+ * Every registered route with its name and localization action, sorted.
+ *
+ * @return list<string>
  */
-final class RouteCacheTest extends TestCase
+function routeSnapshot(): array
 {
-    private static function cachedRoutesFile(): string
-    {
-        return __DIR__.'/../Fixtures/routes/localized.php';
+    $routes = [];
+
+    foreach (Route::getRoutes()->getRoutes() as $route) {
+        $routes[] = implode('|', $route->methods()).' '.$route->uri().' '.$route->getName().' '.json_encode($route->getAction('localization'));
     }
 
-    /**
-     * @return list<string>
-     */
-    private static function routeSnapshot(): array
-    {
-        $routes = [];
+    sort($routes);
 
-        foreach (Route::getRoutes()->getRoutes() as $route) {
-            $routes[] = implode('|', $route->methods()).' '.$route->uri().' '.$route->getName().' '.json_encode($route->getAction('localization'));
-        }
+    return $routes;
+}
 
-        sort($routes);
+/**
+ * What Laravel 7's route:cache and its cached routes file do.
+ */
+function cacheRoutes(): void
+{
+    $routes = Route::getRoutes();
+    expect($routes)->toBeInstanceOf(RouteCollection::class);
 
-        return $routes;
+    foreach ($routes as $route) {
+        expect($route)->toBeInstanceOf(RoutingRoute::class);
+        $route->prepareForSerialization();
     }
 
-    /**
-     * @return array<string, array{int, mixed}>
-     */
-    private function responses(): array
-    {
+    $file = tempnam(sys_get_temp_dir(), 'localization-routes');
+
+    try {
+        file_put_contents($file, '<?php app(\'router\')->setCompiledRoutes('.var_export($routes->compile(), true).');'.PHP_EOL);
+        require $file;
+    } finally {
+        unlink($file);
+    }
+
+    expect(Route::getRoutes())->toBeInstanceOf(CompiledRouteCollection::class);
+}
+
+test('it serves identical routes and responses from cached routes', function () {
+    $responses = function (): array {
         $urls = [
             '/', '/ar', '/fr/a-propos', '/about', '/fr/produits/5', '/ar/'.rawurlencode('المنتجات').'/5', '/en/products/5?x=1',
             '/ar/'.rawurlencode('مقالات').'/'.rawurlencode('معمارية-البرمجيات'), '/posts/clean-architecture', '/de/about', '/fr/items',
@@ -64,68 +84,44 @@ final class RouteCacheTest extends TestCase
         $results['tampered'] = [$this->get(str_replace('/ar/', '/fr/', $signed))->getStatusCode(), null];
 
         return $results;
+    };
+
+    require cachedRoutesFile();
+    Route::getRoutes()->refreshNameLookups();
+
+    $uncached = routeSnapshot();
+    $uncachedResponses = $responses();
+
+    cacheRoutes();
+
+    expect(routeSnapshot())->toBe($uncached)
+        ->and($responses())->toBe($uncachedResponses)
+        ->and($uncachedResponses['/ar'][0])->toBe(200)
+        ->and($uncachedResponses['/ar'][1]['locale'])->toBe('ar')
+        ->and($uncachedResponses['/en/products/5?x=1'][0])->toBe(301)
+        ->and($uncachedResponses['/en/products/5?x=1'][1])->toEndWith('/products/5?x=1')
+        ->and($uncachedResponses['/de/about'][0])->toBe(404)
+        ->and($uncachedResponses['api'][1]['source'])->toBe('header')
+        ->and($uncachedResponses['signed'][0])->toBe(200)
+        ->and($uncachedResponses['tampered'][0])->toBe(403);
+});
+
+test('it lists localized routes with route list', function () {
+    require cachedRoutesFile();
+
+    expect(Artisan::call('route:list'))->toBe(0)
+        ->and(Artisan::output())->toContain('localized.ar.products.show');
+});
+
+test('it stores the configuration with config cache', function () {
+    $file = tempnam(sys_get_temp_dir(), 'localization-config');
+
+    try {
+        $config = config('pharaonic.localization');
+        file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
+
+        expect(require $file)->toBe($config);
+    } finally {
+        unlink($file);
     }
-
-    /**
-     * What Laravel 6's route:cache and its cached routes file do.
-     */
-    private function cacheRoutes(): void
-    {
-        $routes = Route::getRoutes();
-
-        foreach ($routes as $route) {
-            $this->assertInstanceOf(RoutingRoute::class, $route);
-            $route->prepareForSerialization();
-        }
-
-        $cached = unserialize(serialize($routes));
-        $this->assertInstanceOf(RouteCollection::class, $cached);
-
-        app('router')->setRoutes($cached);
-    }
-
-    public function test_it_serves_identical_routes_and_responses_from_cached_routes(): void
-    {
-        require self::cachedRoutesFile();
-        Route::getRoutes()->refreshNameLookups();
-
-        $uncached = self::routeSnapshot();
-        $uncachedResponses = $this->responses();
-
-        $this->cacheRoutes();
-
-        $this->assertSame($uncached, self::routeSnapshot());
-        $this->assertSame($uncachedResponses, $this->responses());
-
-        $this->assertSame(200, $uncachedResponses['/ar'][0]);
-        $this->assertSame('ar', $uncachedResponses['/ar'][1]['locale']);
-        $this->assertSame(301, $uncachedResponses['/en/products/5?x=1'][0]);
-        $this->assertStringEndsWith('/products/5?x=1', $uncachedResponses['/en/products/5?x=1'][1]);
-        $this->assertSame(404, $uncachedResponses['/de/about'][0]);
-        $this->assertSame('header', $uncachedResponses['api'][1]['source']);
-        $this->assertSame(200, $uncachedResponses['signed'][0]);
-        $this->assertSame(403, $uncachedResponses['tampered'][0]);
-    }
-
-    public function test_it_lists_localized_routes_with_route_list(): void
-    {
-        require self::cachedRoutesFile();
-
-        $this->assertSame(0, Artisan::call('route:list'));
-        $this->assertStringContainsString('localized.ar.products.show', Artisan::output());
-    }
-
-    public function test_it_stores_the_configuration_with_config_cache(): void
-    {
-        $file = tempnam(sys_get_temp_dir(), 'localization-config');
-
-        try {
-            $config = config('pharaonic.localization');
-            file_put_contents($file, '<?php return '.var_export($config, true).';'.PHP_EOL);
-
-            $this->assertSame($config, require $file);
-        } finally {
-            unlink($file);
-        }
-    }
-}
+});

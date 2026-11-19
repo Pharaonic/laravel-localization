@@ -2,141 +2,84 @@
 
 declare(strict_types=1);
 
-namespace Pharaonic\Laravel\Localization\Tests\Unit;
-
-use InvalidArgumentException;
 use Pharaonic\Laravel\Localization\Support\LocaleMatcher;
-use Pharaonic\Laravel\Localization\Tests\TestCase;
 
-final class LocaleMatcherTest extends TestCase
-{
-    /**
-     * @dataProvider normalizedCodes
-     */
-    public function test_it_normalizes_locale_codes_to_bcp_47(string $input, string $expected): void
-    {
-        $this->assertSame($expected, LocaleMatcher::normalize($input));
-    }
+test('it normalizes locale codes to bcp 47', function (string $input, string $expected) {
+    expect(LocaleMatcher::normalize($input))->toBe($expected);
+})->with([
+    ['ar', 'ar'],
+    ['AR', 'ar'],
+    ['ar_EG', 'ar-EG'],
+    ['ar-eg', 'ar-EG'],
+    ['pt_br', 'pt-BR'],
+    ['zh_hant_tw', 'zh-Hant-TW'],
+    ['es-419', 'es-419'],
+    ['de-CH-1996', 'de-CH-1996'],
+]);
 
-    /**
-     * @return list<array{string, string}>
-     */
-    public static function normalizedCodes(): array
-    {
-        return [
-            ['ar', 'ar'],
-            ['AR', 'ar'],
-            ['ar_EG', 'ar-EG'],
-            ['ar-eg', 'ar-EG'],
-            ['pt_br', 'pt-BR'],
-            ['zh_hant_tw', 'zh-Hant-TW'],
-            ['es-419', 'es-419'],
-            ['de-CH-1996', 'de-CH-1996'],
-        ];
-    }
+test('it rejects malformed locale codes', function (string $input) {
+    expect(LocaleMatcher::isValid($input))->toBeFalse()
+        ->and(fn () => LocaleMatcher::normalize($input))->toThrow(InvalidArgumentException::class);
+})->with([
+    '', 'a', 'english', 'ar EG', 'ar--EG', '../ar', 'ar/EG', '%61r', '*', 'ar-', "ar\0", 'ar;q=1', 'ع', str_repeat('a', 65),
+]);
 
-    /**
-     * @dataProvider malformedCodes
-     */
-    public function test_it_rejects_malformed_locale_codes(string $input): void
-    {
-        $this->assertFalse(LocaleMatcher::isValid($input));
+test('it matches exactly then the parent then the first configured variant', function () {
+    $matcher = new LocaleMatcher(['en', 'ar', 'pt_BR', 'pt_PT', 'zh_Hant']);
 
-        $this->expectException(InvalidArgumentException::class);
+    expect($matcher->match('en'))->toBe('en')
+        ->and($matcher->match('EN'))->toBe('en')
+        ->and($matcher->match('ar-EG'))->toBe('ar')
+        ->and($matcher->match('ar_EG'))->toBe('ar')
+        ->and($matcher->match('pt-br'))->toBe('pt_BR')
+        ->and($matcher->match('pt_PT'))->toBe('pt_PT')
+        ->and($matcher->match('pt'))->toBe('pt_BR')
+        ->and($matcher->match('pt-AO'))->toBe('pt_BR')
+        ->and($matcher->match('zh-Hant-TW'))->toBe('zh_Hant')
+        ->and($matcher->match('zh-CN'))->toBe('zh_Hant')
+        ->and($matcher->match('fr'))->toBeNull()
+        ->and($matcher->match('not a locale'))->toBeNull();
+});
 
-        LocaleMatcher::normalize($input);
-    }
+test('it only matches exact tags with exact', function () {
+    $matcher = new LocaleMatcher(['en', 'pt_BR']);
 
-    /**
-     * @return list<array{string}>
-     */
-    public static function malformedCodes(): array
-    {
-        return array_map(static fn (string $code): array => [$code], [
-            '', 'a', 'english', 'ar EG', 'ar--EG', '../ar', 'ar/EG', '%61r', '*', 'ar-', "ar\0", 'ar;q=1', 'ع', str_repeat('a', 65),
-        ]);
-    }
+    expect($matcher->exact('pt-br'))->toBe('pt_BR')
+        ->and($matcher->exact('en-US'))->toBeNull()
+        ->and($matcher->exact('pt'))->toBeNull()
+        ->and($matcher->exact('???'))->toBeNull();
+});
 
-    public function test_it_matches_exactly_then_the_parent_then_the_first_configured_variant(): void
-    {
-        $matcher = new LocaleMatcher(['en', 'ar', 'pt_BR', 'pt_PT', 'zh_Hant']);
+test('it parses accept language by quality then position', function () {
+    expect(LocaleMatcher::parseAcceptLanguage('fr;q=0.5, ar-EG, en;q=0.9, ar;q=0.9, *;q=0.1'))
+        ->toBe(['ar-eg' => 1.0, 'en' => 0.9, 'ar' => 0.9, 'fr' => 0.5, '*' => 0.1]);
+});
 
-        $this->assertSame('en', $matcher->match('en'));
-        $this->assertSame('en', $matcher->match('EN'));
-        $this->assertSame('ar', $matcher->match('ar-EG'));
-        $this->assertSame('ar', $matcher->match('ar_EG'));
-        $this->assertSame('pt_BR', $matcher->match('pt-br'));
-        $this->assertSame('pt_PT', $matcher->match('pt_PT'));
-        $this->assertSame('pt_BR', $matcher->match('pt'));
-        $this->assertSame('pt_BR', $matcher->match('pt-AO'));
-        $this->assertSame('zh_Hant', $matcher->match('zh-Hant-TW'));
-        $this->assertSame('zh_Hant', $matcher->match('zh-CN'));
-        $this->assertNull($matcher->match('fr'));
-        $this->assertNull($matcher->match('not a locale'));
-    }
+test('it skips malformed accept language entries and keeps the first of duplicates', function () {
+    expect(LocaleMatcher::parseAcceptLanguage('en;q=2, en;q=abc, fr;q=0.8;x=1, , ;q=1, ar, ar;q=0.1, de;q=0.70'))
+        ->toBe(['ar' => 1.0, 'de' => 0.7]);
+});
 
-    public function test_it_only_matches_exact_tags_with_exact(): void
-    {
-        $matcher = new LocaleMatcher(['en', 'pt_BR']);
+test('it bounds accept language parsing', function () {
+    $header = implode(',', array_fill(0, 1000, 'xx-YY;q=0.5')).',ar';
+    $many = implode(',', array_map(static fn (int $i): string => 'l'.chr(97 + intdiv($i, 26) % 26).chr(97 + $i % 26), range(0, 40))).',ar';
 
-        $this->assertSame('pt_BR', $matcher->exact('pt-br'));
-        $this->assertNull($matcher->exact('en-US'));
-        $this->assertNull($matcher->exact('pt'));
-        $this->assertNull($matcher->exact('???'));
-    }
+    expect(LocaleMatcher::parseAcceptLanguage($header))->toBe(['xx-yy' => 0.5])
+        ->and((new LocaleMatcher(['en', 'ar']))->negotiate($header, 'en'))->toBeNull()
+        ->and(LocaleMatcher::parseAcceptLanguage($many))->toHaveCount(LocaleMatcher::MAX_HEADER_ENTRIES);
+});
 
-    public function test_it_parses_accept_language_by_quality_then_position(): void
-    {
-        $this->assertSame(
-            ['ar-eg' => 1.0, 'en' => 0.9, 'ar' => 0.9, 'fr' => 0.5, '*' => 0.1],
-            LocaleMatcher::parseAcceptLanguage('fr;q=0.5, ar-EG, en;q=0.9, ar;q=0.9, *;q=0.1')
-        );
-    }
-
-    public function test_it_skips_malformed_accept_language_entries_and_keeps_the_first_of_duplicates(): void
-    {
-        $this->assertSame(
-            ['ar' => 1.0, 'de' => 0.7],
-            LocaleMatcher::parseAcceptLanguage('en;q=2, en;q=abc, fr;q=0.8;x=1, , ;q=1, ar, ar;q=0.1, de;q=0.70')
-        );
-    }
-
-    public function test_it_bounds_accept_language_parsing(): void
-    {
-        $header = implode(',', array_fill(0, 1000, 'xx-YY;q=0.5')).',ar';
-
-        $this->assertSame(['xx-yy' => 0.5], LocaleMatcher::parseAcceptLanguage($header));
-        $this->assertNull((new LocaleMatcher(['en', 'ar']))->negotiate($header, 'en'));
-
-        $many = implode(',', array_map(static fn (int $i): string => 'l'.chr(97 + intdiv($i, 26) % 26).chr(97 + $i % 26), range(0, 40))).',ar';
-
-        $this->assertCount(LocaleMatcher::MAX_HEADER_ENTRIES, LocaleMatcher::parseAcceptLanguage($many));
-    }
-
-    /**
-     * @dataProvider negotiations
-     */
-    public function test_it_negotiates_accept_language_against_the_supported_locales(string $header, ?string $expected): void
-    {
-        $this->assertSame($expected, (new LocaleMatcher(['en', 'ar', 'fr']))->negotiate($header, 'en'));
-    }
-
-    /**
-     * @return array<string, array{string, ?string}>
-     */
-    public static function negotiations(): array
-    {
-        return [
-            'regional range' => ['ar-EG,ar;q=0.9,en;q=0.8', 'ar'],
-            'weights' => ['en;q=0.2, fr;q=0.7', 'fr'],
-            'unsupported only' => ['de, ja', null],
-            'q=0 excludes' => ['ar;q=0, fr;q=0.5', 'fr'],
-            'q=0 excludes subtags' => ['ar-EG, ar;q=0', null],
-            'wildcard accepts the default' => ['de, *;q=0.5', 'en'],
-            'wildcard skips rejected default' => ['*, en;q=0', 'ar'],
-            'all rejected' => ['*;q=0', null],
-            'garbage' => ['@@@, ;;;, =', null],
-            'empty' => ['', null],
-        ];
-    }
-}
+test('it negotiates accept language against the supported locales', function (string $header, ?string $expected) {
+    expect((new LocaleMatcher(['en', 'ar', 'fr']))->negotiate($header, 'en'))->toBe($expected);
+})->with([
+    'regional range' => ['ar-EG,ar;q=0.9,en;q=0.8', 'ar'],
+    'weights' => ['en;q=0.2, fr;q=0.7', 'fr'],
+    'unsupported only' => ['de, ja', null],
+    'q=0 excludes' => ['ar;q=0, fr;q=0.5', 'fr'],
+    'q=0 excludes subtags' => ['ar-EG, ar;q=0', null],
+    'wildcard accepts the default' => ['de, *;q=0.5', 'en'],
+    'wildcard skips rejected default' => ['*, en;q=0', 'ar'],
+    'all rejected' => ['*;q=0', null],
+    'garbage' => ['@@@, ;;;, =', null],
+    'empty' => ['', null],
+]);

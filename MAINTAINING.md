@@ -8,9 +8,9 @@ Localized routing for Laravel: `Route::localized()` registers static, cacheable 
 
 ## Supported Laravel lines
 
-One branch per Laravel major, from `6.x` to the newest major, all carrying the redesign (first released as `N.0.0` on each line). Each line's PHP range, `illuminate/*` constraint, and tools follow the Pharaonic Laravel line table. `6.x` runs PHPUnit; later lines run Pest. `develop` follows the newest line. 1.x (`main`, tags `1.0.0`–`1.3.7`) is the legacy engine and is not developed further.
+One branch per Laravel major, from `6.x` to the newest major, all carrying the redesign (first released as `N.0.0` on each line). Each line's PHP range, `illuminate/*` constraint, and tools follow the Pharaonic Laravel line table. `6.x` runs PHPUnit, because Pest cannot install on Laravel 6; later lines run Pest. `develop` follows the newest line. 1.x (`main`, tags `1.0.0`–`1.3.7`) is the legacy engine and is not developed further.
 
-Per-line differences beyond constraints: Laravel 6 has no `signed:relative` middleware (docs show `hasValidSignature(false)`), and its tests reproduce `route:cache` and `config:cache` in-process because Testbench 4 has no remote process.
+Per-line differences beyond constraints: Laravel 6 and 7 have no `signed:relative` middleware (docs show `hasValidSignature(false)`). Their tests reproduce `route:cache` and `config:cache` in-process because Testbench 4 and 5 have no remote process; 7.x loads the compiled routes Laravel 7 caches.
 
 ## Core library
 
