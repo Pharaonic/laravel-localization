@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here.
 
+## 8.0.0 - Unreleased
+
+### Compatibility
+
+- Laravel 8.75+ on PHP 8.0 or 8.1, with `ext-intl`.
+- The same API and behavior as 7.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
+- Relative signed URLs work with Laravel's `signed:relative` middleware.
+
 ## 7.0.0 - Unreleased
 
 ### Compatibility
