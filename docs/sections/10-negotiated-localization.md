@@ -41,7 +41,7 @@ Resolvers run in the configured order; the first one returning a supported local
 | `cookie` | `cookie.key` | As the request carries it: decrypted by `EncryptCookies` in the `web` group. Never writes one. |
 | `header` | `Accept-Language` (or `header.name`) | Quality values, `q=0`, `*`, language-range matching; malformed entries are skipped and parsing is bounded. |
 
-```php title="app/Models/User.php"
+```php title="app/User.php"
 use Illuminate\Contracts\Translation\HasLocalePreference;
 
 class User extends Authenticatable implements HasLocalePreference
