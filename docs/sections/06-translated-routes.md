@@ -1,15 +1,15 @@
 ## Translated Routes
 
-Translate the static segments of localized URIs with a `routes.php` lang file per locale. Each key is one URI segment, each value its translation.
+Translate the static segments of localized URIs with a `routes.php` lang file per locale, in `lang/` (or `resources/lang/` in applications upgraded from Laravel 8). Each key is one URI segment, each value its translation.
 
-```php title="resources/lang/ar/routes.php"
+```php title="lang/ar/routes.php"
 return [
     'products' => 'المنتجات',
     'about' => 'من-نحن',
 ];
 ```
 
-```php title="resources/lang/fr/routes.php"
+```php title="lang/fr/routes.php"
 return [
     'products' => 'produits',
     'about' => 'a-propos',

@@ -85,7 +85,7 @@ The tenant's locale wins; without one, the user's, then the header's.
 
 - ===Translations
 
-  ```php title="resources/lang/ar/routes.php"
+  ```php title="lang/ar/routes.php"
   return ['posts' => 'مقالات'];
   ```
 
