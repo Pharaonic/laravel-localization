@@ -1,0 +1,5 @@
+providers:
+  - Pharaonic\Laravel\Localization\LocalizationServiceProvider
+
+env:
+  APP_URL: http://localhost
