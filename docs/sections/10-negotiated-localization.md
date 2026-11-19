@@ -3,8 +3,10 @@
 For APIs and personalized responses, add the `localization` middleware. The URL stays the same, and the locale comes from a resolver profile.
 
 ```php title="routes/api.php"
+use App\Http\Controllers\ApiProductController;
+
 Route::middleware('localization')->group(function (): void {
-    Route::get('/products', 'ApiProductController@index');
+    Route::get('/products', [ApiProductController::class, 'index']);
 });
 ```
 
@@ -58,7 +60,9 @@ class User extends Authenticatable implements HasLocalePreference
 The package puts `localization` after authentication in Laravel's middleware priority, so the `user` resolver sees token users whatever order you list them in:
 
 ```php title="routes/api.php"
-Route::middleware(['auth:sanctum', 'localization'])->get('/me', 'MeController');
+use App\Http\Controllers\MeController;
+
+Route::middleware(['auth:sanctum', 'localization'])->get('/me', MeController::class);
 ```
 
 For `session` and `cookie`, the route needs the `web` group (or `StartSession` and `EncryptCookies`); `localization:doctor` warns when they are missing.

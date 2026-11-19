@@ -15,17 +15,21 @@ The signatures are `signedRoute($name, $parameters = [], $expiration = null, $ab
 Protect the route with Laravel's `signed` middleware:
 
 ```php title="routes/web.php"
+use App\Http\Controllers\AcceptInviteController;
+
 Route::localized(function (): void {
-    Route::get('/invites/{invite}', 'AcceptInviteController')
+    Route::get('/invites/{invite}', AcceptInviteController::class)
         ->name('invites.accept')
         ->middleware('signed');
 });
 ```
 
-Laravel 7 has no `signed:relative` middleware. Check a relative URL in the controller instead:
+Protect a route that receives relative signed URLs with `signed:relative`:
 
-```php title="app/Http/Controllers/AcceptInviteController.php"
-abort_unless($request->hasValidSignature(false), 403);
+```php title="routes/web.php"
+Route::get('/invites/{invite}', AcceptInviteController::class)
+    ->name('invites.accept')
+    ->middleware('signed:relative');
 ```
 
 ### What to know

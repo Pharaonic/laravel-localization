@@ -13,9 +13,12 @@ English at `/`, Arabic at `/ar`, French at `/fr`, with canonical redirects for `
 - ===Routes
 
   ```php title="routes/web.php"
+  use App\Http\Controllers\AboutController;
+  use App\Http\Controllers\HomeController;
+
   Route::localized(function (): void {
-      Route::get('/', 'HomeController')->name('home');
-      Route::get('/about', 'AboutController')->name('about');
+      Route::get('/', HomeController::class)->name('home');
+      Route::get('/about', AboutController::class)->name('about');
   });
   ```
 
@@ -39,7 +42,9 @@ English at `/`, Arabic at `/ar`, French at `/fr`, with canonical redirects for `
 ```
 
 ```php title="routes/api.php"
-Route::middleware('localization')->get('/products', 'ApiProductController@index');
+use App\Http\Controllers\ApiProductController;
+
+Route::middleware('localization')->get('/products', [ApiProductController::class, 'index']);
 ```
 
 ```text
@@ -53,7 +58,9 @@ Accept-Language: de                        → en (app.locale), source "default"
 With `User` implementing `HasLocalePreference`, the default `api` profile (`user`, then `header`) uses the user's language when they have one:
 
 ```php title="routes/api.php"
-Route::middleware(['auth:sanctum', 'localization'])->get('/notifications', 'NotificationController');
+use App\Http\Controllers\NotificationController;
+
+Route::middleware(['auth:sanctum', 'localization'])->get('/notifications', NotificationController::class);
 ```
 
 ### 4. A tenant resolver before everything else
@@ -85,8 +92,10 @@ The tenant's locale wins; without one, the user's, then the header's.
 - ===Routes
 
   ```php title="routes/web.php"
+  use App\Http\Controllers\PostController;
+
   Route::localized(function (): void {
-      Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
+      Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
   });
   ```
 

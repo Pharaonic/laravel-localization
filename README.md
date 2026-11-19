@@ -1,10 +1,10 @@
 <p align="center"><a href="https://pharaonic.dev/packages/laravel/localization" target="_blank"><img src="https://raw.githubusercontent.com/Pharaonic/laravel-localization/develop/docs/cover.webp"></a></p>
 
 <p align="center">
-  <a href="https://php.net" target="_blank"><img src="https://img.shields.io/static/v1?label=PHP&message=8.0&color=blue&style=flat-square" alt="PHP Version : 8.0"></a>
-  <a href="https://laravel.com" target="_blank"><img src="https://img.shields.io/static/v1?label=Laravel&message=7.x&color=F05340&style=flat-square" alt="Laravel Version : 7.x"></a>
+  <a href="https://php.net" target="_blank"><img src="https://img.shields.io/static/v1?label=PHP&message=8.0%20|%208.1&color=blue&style=flat-square" alt="PHP Version : 8.0 | 8.1"></a>
+  <a href="https://laravel.com" target="_blank"><img src="https://img.shields.io/static/v1?label=Laravel&message=8.x&color=F05340&style=flat-square" alt="Laravel Version : 8.x"></a>
   <img src="https://img.shields.io/static/v1?label=License&message=MIT&color=brightgreen&style=flat-square" alt="License">
-  <img src="https://github.com/Pharaonic/laravel-localization/actions/workflows/build.yml/badge.svg?branch=7.x" alt="Build">
+  <img src="https://github.com/Pharaonic/laravel-localization/actions/workflows/build.yml/badge.svg?branch=8.x" alt="Build">
   <br>
   <a href="https://packagist.org/packages/Pharaonic/laravel-localization" target="_blank"><img src="https://img.shields.io/static/v1?label=Packagist&message=pharaonic/laravel-localization&color=blue&logo=packagist&logoColor=white" alt="Source"></a>
   <a href="https://packagist.org/packages/pharaonic/laravel-localization" target="_blank"><img src="https://poser.pugx.org/pharaonic/laravel-localization/v" alt="Packagist Version"></a>
@@ -29,14 +29,17 @@ php artisan vendor:publish --tag=localization-config
 ## Usage
 
 ```php
+use App\Http\Controllers\ApiProductController;
+use App\Http\Controllers\ProductController;
+
 // config/pharaonic/localization.php: 'supported' => ['en', 'ar', 'fr'], with app.locale = 'en'
 
 Route::localized(function (): void {
-    Route::get('/products', 'ProductController@index')->name('products.index');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 });
 // /products (en), /ar/products, /fr/products; /en/products redirects to /products
 
-Route::middleware('localization')->get('/api/products', 'ApiProductController@index');
+Route::middleware('localization')->get('/api/products', [ApiProductController::class, 'index']);
 // The locale comes from the user's preferredLocale(), then Accept-Language, then app.locale
 
 locale()->route('products.index', locale: 'ar'); // "https://example.com/ar/products"

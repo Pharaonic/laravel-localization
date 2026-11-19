@@ -17,9 +17,12 @@ return [
 ```
 
 ```php title="routes/web.php"
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ProductController;
+
 Route::localized(function (): void {
-    Route::get('/products/{product}', 'ProductController@show')->name('products.show');
-    Route::get('/about', 'AboutController')->name('about');
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/about', AboutController::class)->name('about');
 });
 
 // /products/{product}        /about
