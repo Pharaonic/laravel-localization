@@ -92,7 +92,7 @@ final class ServiceProviderTest extends TestCase
         $this->assertNull(locale()->source());
     }
 
-    public function test_it_registers_100_routes_in_3_locales_as_900_static_routes(): void
+    public function test_it_registers_100_routes_in_3_locales_as_300_routes_and_100_canonical_redirects(): void
     {
         Route::localized(function (): void {
             for ($i = 0; $i < 100; $i++) {
