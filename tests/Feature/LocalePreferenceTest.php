@@ -2,157 +2,111 @@
 
 declare(strict_types=1);
 
-namespace Pharaonic\Laravel\Localization\Tests\Feature;
-
 use Illuminate\Support\Facades\Route;
-use InvalidArgumentException;
 use Pharaonic\Laravel\Localization\Exceptions\UnsupportedLocaleException;
 use Pharaonic\Laravel\Localization\Tests\Fixtures\Controllers\PageController;
-use Pharaonic\Laravel\Localization\Tests\TestCase;
-use RuntimeException;
-use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\Response;
 
-final class LocalePreferenceTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Route::middleware('web')->group(function (): void {
-            Route::post('/language/{locale}', function (string $locale) {
-                locale()->remember($locale, 'session');
-                locale()->remember($locale, 'cookie');
-
-                return ['locale' => app()->getLocale(), 'session' => session('locale')];
-            });
-            Route::post('/language-reset', function () {
-                locale()->forget('session');
-                locale()->forget('cookie');
-
-                return ['session' => session('locale')];
-            });
-            Route::localized(function () {
-                Route::get('/page', PageController::class);
-            });
-            Route::middleware('localization:web')->get('/negotiated', PageController::class);
-        });
-        Route::middleware('localization')->post('/api/language/{locale}', function (string $locale) {
+beforeEach(function () {
+    Route::middleware('web')->group(function (): void {
+        Route::post('/language/{locale}', function (string $locale) {
             locale()->remember($locale, 'session');
+            locale()->remember($locale, 'cookie');
+
+            return ['locale' => app()->getLocale(), 'session' => session('locale')];
         });
-    }
+        Route::post('/language-reset', function () {
+            locale()->forget('session');
+            locale()->forget('cookie');
 
-    private static function cookie(Response $response, string $name): ?Cookie
-    {
-        foreach ($response->headers->getCookies() as $cookie) {
-            if ($cookie->getName() === $name) {
-                return $cookie;
-            }
-        }
+            return ['session' => session('locale')];
+        });
+        Route::localized(function () {
+            Route::get('/page', PageController::class);
+        });
+        Route::middleware('localization:web')->get('/negotiated', PageController::class);
+    });
+    Route::middleware('localization')->post('/api/language/{locale}', function (string $locale) {
+        locale()->remember($locale, 'session');
+    });
+});
 
-        return null;
-    }
+test('it stores a validated canonical preference in the session and an encrypted cookie', function () {
+    $response = $this->post('/language/Ar')->assertOk()->assertJson(['session' => 'ar', 'locale' => 'en']);
+    $cookie = responseCookie($response->baseResponse, 'locale');
 
-    public function test_it_stores_a_validated_canonical_preference_in_the_session_and_an_encrypted_cookie(): void
-    {
-        $response = $this->post('/language/Ar')->assertOk()->assertJson(['session' => 'ar', 'locale' => 'en']);
-        $cookie = self::cookie($response->baseResponse, 'locale');
+    expect($cookie)->not->toBeNull()
+        ->and($cookie->getValue())->not->toBe('ar')
+        ->and($cookie->isHttpOnly())->toBeTrue()
+        ->and($cookie->getSameSite())->toBe('lax')
+        ->and($cookie->getPath())->toBe('/')
+        ->and($cookie->getExpiresTime())->toBeGreaterThan(now()->addDays(364)->getTimestamp());
 
-        $this->assertNotNull($cookie);
-        $this->assertNotSame('ar', $cookie->getValue());
-        $this->assertTrue($cookie->isHttpOnly());
-        $this->assertSame('lax', $cookie->getSameSite());
-        $this->assertSame('/', $cookie->getPath());
-        $this->assertGreaterThan(now()->addDays(364)->getTimestamp(), $cookie->getExpiresTime());
+    $response->assertCookie('locale', 'ar');
+});
 
-        $response->assertCookie('locale', 'ar');
-    }
+test('it applies the configured cookie attributes', function () {
+    $this->localization(['cookie' => ['key' => 'lang', 'minutes' => 10, 'same_site' => 'strict', 'secure' => true]]);
 
-    public function test_it_applies_the_configured_cookie_attributes(): void
-    {
-        $this->localization(['cookie' => ['key' => 'lang', 'minutes' => 10, 'same_site' => 'strict', 'secure' => true]]);
+    $cookie = responseCookie($this->post('/language/fr')->baseResponse, 'lang');
 
-        $cookie = self::cookie($this->post('/language/fr')->baseResponse, 'lang');
+    expect($cookie)->not->toBeNull()
+        ->and($cookie->isSecure())->toBeTrue()
+        ->and($cookie->getSameSite())->toBe('strict')
+        ->and($cookie->getExpiresTime())->toBeLessThanOrEqual(now()->addMinutes(10)->getTimestamp());
+});
 
-        $this->assertNotNull($cookie);
-        $this->assertTrue($cookie->isSecure());
-        $this->assertSame('strict', $cookie->getSameSite());
-        $this->assertLessThanOrEqual(now()->addMinutes(10)->getTimestamp(), $cookie->getExpiresTime());
-    }
+test('it rejects unsupported locales before storing anything', function () {
+    $this->withoutExceptionHandling();
 
-    public function test_it_rejects_unsupported_locales_before_storing_anything(): void
-    {
-        $this->withoutExceptionHandling();
+    expect(fn () => $this->post('/language/de'))->toThrow(UnsupportedLocaleException::class)
+        ->and(fn () => locale()->remember('ar', 'database'))->toThrow(InvalidArgumentException::class, 'Unknown preference store [database]');
+});
 
-        try {
-            $this->post('/language/de');
-            $this->fail('An unsupported locale was stored.');
-        } catch (UnsupportedLocaleException $exception) {
-            $this->addToAssertionCount(1);
-        }
+test('it fails explicitly when the session is not started', function () {
+    $this->withoutExceptionHandling();
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Unknown preference store [database]');
+    expect(fn () => $this->post('/api/language/ar'))->toThrow(RuntimeException::class, 'needs a started session');
+});
 
-        locale()->remember('ar', 'database');
-    }
+test('it does not change the current request locale or a path locale', function () {
+    Route::middleware('web')->group(function () {
+        Route::localized(function () {
+            Route::post('/choose', function () {
+                locale()->remember('fr', 'session');
 
-    public function test_it_fails_explicitly_when_the_session_is_not_started(): void
-    {
-        $this->withoutExceptionHandling();
-
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('needs a started session');
-
-        $this->post('/api/language/ar');
-    }
-
-    public function test_it_does_not_change_the_current_request_locale_or_a_path_locale(): void
-    {
-        Route::middleware('web')->group(function () {
-            Route::localized(function () {
-                Route::post('/choose', function () {
-                    locale()->remember('fr', 'session');
-
-                    return ['locale' => app()->getLocale()];
-                });
+                return ['locale' => app()->getLocale()];
             });
         });
+    });
 
-        $this->post('/ar/choose')->assertJson(['locale' => 'ar']);
-        $this->get('/page')->assertJson(['locale' => 'en']);
-    }
+    $this->post('/ar/choose')->assertJson(['locale' => 'ar']);
+    $this->get('/page')->assertJson(['locale' => 'en']);
+});
 
-    public function test_it_is_used_by_negotiated_routes_on_later_requests(): void
-    {
-        $this->withHeader('Accept-Language', '');
-        $this->post('/language/fr');
+test('it is used by negotiated routes on later requests', function () {
+    $this->withHeader('Accept-Language', '');
+    $this->post('/language/fr');
 
-        $this->get('/negotiated')->assertJson(['locale' => 'fr', 'source' => 'session']);
-    }
+    $this->get('/negotiated')->assertJson(['locale' => 'fr', 'source' => 'session']);
+});
 
-    public function test_it_forgets_stored_preferences(): void
-    {
-        $this->withSession(['locale' => 'ar']);
+test('it forgets stored preferences', function () {
+    $this->withSession(['locale' => 'ar']);
 
-        $response = $this->post('/language-reset')->assertJson(['session' => null]);
-        $cookie = self::cookie($response->baseResponse, 'locale');
+    $response = $this->post('/language-reset')->assertJson(['session' => null]);
+    $cookie = responseCookie($response->baseResponse, 'locale');
 
-        $this->assertNotNull($cookie);
-        $this->assertTrue($cookie->isCleared());
-    }
+    expect($cookie)->not->toBeNull()
+        ->and($cookie->isCleared())->toBeTrue();
+});
 
-    public function test_it_never_writes_preferences_while_resolving(): void
-    {
-        $this->withSession(['locale' => 'fr'])->withHeader('Accept-Language', 'ar');
+test('it never writes preferences while resolving', function () {
+    $this->withSession(['locale' => 'fr'])->withHeader('Accept-Language', 'ar');
 
-        $negotiated = $this->get('/negotiated')->assertJson(['locale' => 'fr']);
-        $path = $this->get('/ar/page')->assertJson(['locale' => 'ar']);
+    $negotiated = $this->get('/negotiated')->assertJson(['locale' => 'fr']);
+    $path = $this->get('/ar/page')->assertJson(['locale' => 'ar']);
 
-        foreach ([$negotiated, $path] as $response) {
-            $this->assertNull(self::cookie($response->baseResponse, 'locale'));
-        }
-
-        $this->assertSame('fr', session('locale'));
-    }
-}
+    expect(responseCookie($negotiated->baseResponse, 'locale'))->toBeNull()
+        ->and(responseCookie($path->baseResponse, 'locale'))->toBeNull()
+        ->and(session('locale'))->toBe('fr');
+});
