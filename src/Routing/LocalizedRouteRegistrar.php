@@ -103,7 +103,11 @@ final class LocalizedRouteRegistrar
             $this->router->setRoutes($collection);
         }
 
-        return array_values(array_filter($captured->getRoutes(), static fn ($route): bool => $route instanceof Route));
+        // RouteCollection::add() only accepts routes; Laravel 6 documents getRoutes() as a plain array.
+        /** @var list<Route> $routes */
+        $routes = array_values($captured->getRoutes());
+
+        return $routes;
     }
 
     private function localize(Route $route, string $locale, string $base, string $outer): Route
