@@ -88,12 +88,7 @@
         "block": false,
         "ignore": {
           "laravel/framework": "No fixed release within Laravel 8; the application chooses the framework release.",
-          "league/commonmark": "No fixed release within Laravel 8; the application chooses the framework release.",
-          "league/flysystem": "No fixed release within Laravel 8; the application chooses the framework release.",
-          "symfony/http-foundation": "No fixed release within Laravel 8; the application chooses the framework release.",
-          "symfony/http-kernel": "No fixed release within Laravel 8; the application chooses the framework release.",
-          "symfony/process": "No fixed release within Laravel 8; the application chooses the framework release.",
-          "symfony/routing": "No fixed release within Laravel 8; the application chooses the framework release."
+          "league/flysystem": "No fixed release within Laravel 8; the application chooses the framework release."
         }
       }
     },
