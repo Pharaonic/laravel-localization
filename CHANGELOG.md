@@ -2,28 +2,28 @@
 
 All notable changes to this project are documented here.
 
-## 12.0.0 - Unreleased
+## 12.0.0 - 2026-11-19
 
 ### Compatibility
 
 - Laravel 12.0+ on PHP 8.2, 8.3, 8.4 or 8.5, with `ext-intl`.
 - The same API and behavior as 11.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
 
-## 11.0.0 - Unreleased
+## 11.0.0 - 2026-11-19
 
 ### Compatibility
 
 - Laravel 11.0+ on PHP 8.2, 8.3 or 8.4, with `ext-intl`. PHP 8.0 and 8.1 are not supported on this line.
 - The same API and behavior as 10.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
 
-## 10.0.0 - Unreleased
+## 10.0.0 - 2026-11-19
 
 ### Compatibility
 
 - Laravel 10.0+ on PHP 8.1, 8.2 or 8.3, with `ext-intl`. PHP 8.0 is no longer supported on this line.
 - The same API and behavior as 9.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
 
-## 9.0.0 - Unreleased
+## 9.0.0 - 2026-11-19
 
 ### Compatibility
 
@@ -31,7 +31,7 @@ All notable changes to this project are documented here.
 - The same API and behavior as 8.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
 - Route translations are read from Laravel 9's `lang/` directory, or `resources/lang/` in upgraded applications, through the translator.
 
-## 8.0.0 - Unreleased
+## 8.0.0 - 2026-11-19
 
 ### Compatibility
 
@@ -39,7 +39,7 @@ All notable changes to this project are documented here.
 - The same API and behavior as 7.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
 - Relative signed URLs work with Laravel's `signed:relative` middleware.
 
-## 7.0.0 - Unreleased
+## 7.0.0 - 2026-11-19
 
 ### Compatibility
 
@@ -47,7 +47,7 @@ All notable changes to this project are documented here.
 - The same API and behavior as 6.0.0, including the deprecated 1.x aliases. 1.x applications follow `UPGRADING.md`.
 - Localized routes work with Laravel 7's compiled route cache.
 
-## 6.0.0 - Unreleased
+## 6.0.0 - 2026-11-19
 
 A redesign of the package as a localization engine with two modes. 1.x applications need the steps in `UPGRADING.md`.
 
