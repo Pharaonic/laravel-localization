@@ -1,76 +1,115 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pharaonic\Laravel\Localization;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
+use Closure;
+use DateInterval;
+use DateTimeInterface;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Translation\Loader;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Router;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
-use Pharaonic\Laravel\Localization\Classes\Localization;
-use Pharaonic\Laravel\Localization\Middleware\LocaleRemover;
+use Pharaonic\Laravel\Localization\Console\DoctorCommand;
+use Pharaonic\Laravel\Localization\Middleware\SetNegotiatedLocale;
+use Pharaonic\Laravel\Localization\Middleware\SetPathLocale;
+use Pharaonic\Laravel\Localization\Routing\LocalizedRouteRegistrar;
+use Pharaonic\Laravel\Localization\Support\LocaleCatalog;
 
-class LocalizationServiceProvider extends ServiceProvider
+final class LocalizationServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
-        // Config Merge
-        $this->mergeConfigFrom(__DIR__ . '/config.php', 'laravel-localization');
+        $this->mergeConfigFrom(__DIR__.'/../config/localization.php', 'pharaonic.localization');
+
+        // Laravel's App::setLocale() writes app.locale, so the default is read now,
+        // before any request can change it, and the catalog is built lazily from it.
+        /** @var Repository $config */
+        $config = $this->app->make('config');
+        $default = $config->get('app.locale');
+
+        $this->app->singleton(LocaleCatalog::class, function (Container $app) use ($default): LocaleCatalog {
+            /** @var Repository $config */
+            $config = $app->make('config');
+
+            return LocaleCatalog::fromConfig($config, $default);
+        });
+
+        $this->app->singleton(LocalizationManager::class);
+    }
+
+    public function boot(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/localization.php' => $this->app->configPath('pharaonic/localization.php'),
+            ], ['pharaonic', 'laravel-localization', 'pharaonic-config', 'localization-config']);
+
+            $this->commands([DoctorCommand::class]);
+        }
+
+        /** @var Router $router */
+        $router = $this->app->make('router');
+        $router->aliasMiddleware('localization', SetNegotiatedLocale::class);
+        $this->prioritizeMiddleware($router);
+
+        // The HTTP kernel copies its own priority list to the router when it is
+        // built; when that happens after boot, apply the order again.
+        $this->app->afterResolving('Illuminate\Contracts\Http\Kernel', function () use ($router): void {
+            $this->prioritizeMiddleware($router);
+        });
+
+        $router->macro('localized', function (Closure $routes): void {
+            $app = Container::getInstance();
+
+            /** @var Router $router */
+            $router = $app->make('router');
+            /** @var Loader $loader */
+            $loader = $app->make('translation.loader');
+            /** @var LocaleCatalog $catalog */
+            $catalog = $app->make(LocaleCatalog::class);
+
+            (new LocalizedRouteRegistrar($router, $catalog, $loader))->register($routes);
+        });
+
+        $this->registerDeprecatedUrlMacros();
     }
 
     /**
-     * Bootstrap services.
-     *
-     * @return void
+     * Run the locale middleware right before SubstituteBindings, so localized
+     * route model binding sees the locale, and after session and authentication.
      */
-    public function boot()
+    private function prioritizeMiddleware(Router $router): void
     {
-        // Publishes
-        $this->publishes([
-            __DIR__ . '/config.php' => config_path('Pharaonic/localization.php'),
-        ], ['pharaonic', 'laravel-localization']);
+        $priority = [];
 
+        foreach ($router->middlewarePriority as $middleware) {
+            if (is_string($middleware) && $middleware !== SetPathLocale::class && $middleware !== SetNegotiatedLocale::class) {
+                $priority[] = $middleware;
+            }
+        }
 
-        $this->app->instance('Localization', new Localization);
+        $index = array_search(SubstituteBindings::class, $priority, true);
 
-        Route::macro('localized', function ($routes) {
-            $type = config('Pharaonic.localization.type', config('laravel-localization.type'));
+        array_splice($priority, $index === false ? count($priority) : $index, 0, [SetPathLocale::class, SetNegotiatedLocale::class]);
 
-            if ($type == 'sub-directory')
-                Route::prefix(locale()->detect($routes))->middleware(LocaleRemover::class)->group($routes);
-            else
-                locale()->detect($routes);
+        $router->middlewarePriority = $priority;
+    }
+
+    private function registerDeprecatedUrlMacros(): void
+    {
+        /** @deprecated Use locale()->signedRoute($name, $parameters, $expiration, $absolute, $locale). */
+        UrlGenerator::macro('LocalizedSignedRoute', function (string $locale, string $name, mixed $parameters = [], DateTimeInterface|DateInterval|int|null $expiration = null, bool $absolute = true): string {
+            return locale()->signedRoute($name, $parameters, $expiration, $absolute, $locale);
         });
 
-        URL::macro('LocalizedSignedRoute', function ($locale, $name, $parameters = [], $expiration = null, $absolute = true) {
-
-            $parameters = Arr::wrap($parameters);
-
-            if (array_key_exists('signature', $parameters)) {
-                throw new InvalidArgumentException(
-                    '"Signature" is a reserved parameter when generating signed routes. Please rename your route parameter.'
-                );
-            }
-
-            if ($expiration) {
-                $parameters = $parameters + ['expires' => $this->availableAt($expiration)];
-            }
-
-            ksort($parameters);
-
-            $key = call_user_func($this->keyResolver);
-
-            return locale($locale)->route($name, $parameters + [
-                'signature' => hash_hmac('sha256', locale($locale)->route($name, $parameters, $absolute), $key),
-            ], $absolute);
-        });
-
-        URL::macro('temporaryLocalizedSignedRoute', function ($locale, $name, $expiration, $parameters = [], $absolute = true) {
-            return $this->LocalizedSignedRoute($locale, $name, $parameters, $expiration, $absolute);
+        /** @deprecated Use locale()->temporarySignedRoute($name, $expiration, $parameters, $absolute, $locale). */
+        UrlGenerator::macro('temporaryLocalizedSignedRoute', function (string $locale, string $name, DateTimeInterface|DateInterval|int $expiration, mixed $parameters = [], bool $absolute = true): string {
+            return locale()->temporarySignedRoute($name, $expiration, $parameters, $absolute, $locale);
         });
     }
 }
